@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style >
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    .col-1{
+      width: 8.33%;
+    }
+    .col-2{
+      width: 16.66%;
+    }
+    .col-3{
+      width: 25%;
+    }
+    .col-4{
+      width: 33.33%;
+    }
+    .col-5{
+      width: 41.66%;
+    }
+    .col-6{
+      width: 50%;
+    }
+    .col-7{
+      width: 58.33%;
+    }
+    .col-8{
+      width: 66.66%;
+    }
+    .col-9{
+      width: 75%;
+    }
+    .col-10{
+      width: 83.33%;
+    }
+    .col-11{
+      width: 91.66%;
+    }
+    .col-12{
+      width: 100%;
+    }
+    body{
+        background-color: #243b55;
+    }
+    .header{
+      height: 64px;
+      background-color: #141e30;
+      position: fixed;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-indent: 40px;
+      z-index: 1;
+    }
+    .header a{
+      text-decoration: none;
+      font-size: 20px;
+      font-family: Arial;
+      font-weight: bold;
+      color: #ffff;
+      letter-spacing: 2px;
+    }
+    .header a span{
+      font-size: 120%;
+        color: #03e9f4;
+        animation: flexing 2s infinite;
+    }
+    @keyframes flexing {
+        from{text-shadow: 0 0 5px #03e9f4,
+        0 0 25px #03e9f4}
+        to{text-shadow: 0 0 50px #03e9f4,
+            0 0 100px #03e9f4;}
+    }
+    .headmain{
+      height: 64px;
+    }
+    .main{
+      float: left;
+      height: 800px;
+      display: flex;
+      flex-direction: column;
+      background-color: #243b55;
+      align-items: center;
+    }
+    .name{
+      height: 100px;
+      background-color: #141e30;
+      margin-top: 40px;
+      position: relative;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .imgscr{
+      margin-top: 40px;
+      height: 500px;
+      background-color: black;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .picture{
+      align-items: center;
+      display: flex;
+        flex-direction: column;
+    }
+    .picture img{
+      border-radius: 20%;
+    }
+    .info{
+      color: white;
+    }
+    .imgname img{
+      border-radius: 50%;
+      margin-left: 40px;
+    }
+    .infoname{
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-size: 17px;
+    }
+    .name2{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: right;
+    }
+    button{
+      padding: 8px 10px;
+      border-radius: 5px;
+      background-color: #03e9f4;
+      color: #fff;
+      box-shadow: 0 0 0 1px #03e9f4;
+      border: none;
+      cursor: pointer;
+        font-family: sans-serif Arial;
+        font-weight: 600;
+    }
+    .name2 button{
+      font-family: sans-serif Arial;
+      font-weight: 600;
+      margin-right: 15px;
+    }
+    .info{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: center;
+    }
+    .game{
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        height: 100px;
+        align-items: center;
+        background-color: beige;
+        border-radius: 10px;
+
+    }
+
+    .picture h2{
+        color: #03e9f4;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-family: sans-serif;
+    }
+    .realinfo{
+        height: 54%;
+        margin-top: 10px;
+        border-radius: 10px;
+        background-color: beige;
+        display: flex;
+        flex-direction: column;
+        text-indent: 50px;
+        color: brown;
+        font-family: Arial;
+        font-size: 15px;
+    }
+    .sidebar{
+        float: left;
+        height: 800px;
+        background-color: darkslategrey;
+        overflow-y: scroll;
+        border-radius: 10px;
+    }
+    .footer{
+        height: 100px;
+        background-color: #141e30;
+        clear: both;
+    }
+    .infogame1{
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .infogame1 img{
+        margin-top: 15px;
+    }
+    .infogame2{
+        height: 30%;
+        display: flex;
+        align-items: end;
+    }
+    .infogame2 button{
+        margin-left: 15px;
+        margin-bottom: 10px;
+        font-family: sans-serif Arial;
+        font-weight: 600;
+    }
+
+
+    .infogame1 img{
+        margin-left: 20px;
+        width: 35%;
+        height: 80%;
+        border-radius: 5px;
+    }
+    .request{
+        margin-left: 40px;
+        margin-top: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 0 1px #03e9f4;
+        height: 150px;
+        width: 80%;
+        background-color: #141e30;
+        display: flex;
+    }
+    .rate{
+        height: 1000px;
+        clear: both;
+        background-color: #243b55
+    }
+    .rateinfo{
+        height: 100%;
+        background-color: black;
+        border-radius: 10px;
+        margin-left: 100px;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-family: Arial;
+        font-size: 15px;
+        align-items: center;
+        float: left;
+    }
+    .form{
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+    .form textarea{
+        margin-left: 30px;
+        height: 150px;
+        width: 90%;
+    }
+    .form input{
+        margin-left: 30px;
+        padding: 8px 10px;
+        border-radius: 5px;
+        background-color: #03e9f4;
+        color: #fff;
+        box-shadow: 0 0 0 1px #03e9f4;
+        border: none;
+        cursor: pointer;
+        font-family: Arial;
+        font-weight: bold;
+    }
+    .id{
+        display: flex;
+        font-family: Arial;
+        flex-direction: column;
+        color: #fff;
+    }
+    .name1{
+        display: flex;
+        flex-direction: row;
+    }
+    .imgname{
+        display: flex;
+        align-items: center;
+    }
+    .infoname p{
+        margin: 0;
+    }
+    .header2{
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        padding-right: 10px;
+    }
+    .dexuat{
+        float: right;
+        height: 100%;
+        background-color: black;
+        border-radius: 10px;
+        display: flex;
+        color: white;
+        font-family: Arial;
+        font-weight: 600;
+        font-size: 17px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .bluan{
+        height: 60%;
+        border-top: 1px solid white;
+    }
+    .xx{
+        margin-top: 40px;
+        padding-left: 10px;
+        display: flex;
+        height: 170px;
+        width: 80%;
+        background-color: #141e30;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 10px;
+        animation: nhap 2s infinite;
+    }
+    @keyframes nhap {
+        from{box-shadow: 0 0 0 1px #03e9f4}
+        to{ box-shadow: 0 0 0 3px #03e9f4}
+    }
+    .xx img{
+        border-radius: 50%;
+        border: 2px solid blueviolet;
+    }
+    .slide img{
+        margin-left: 10px;
+        border-radius: 10px;
+    }
+    .header2 button{
+        margin-right: 10px;
+    }
+    .request{
+    }
+    #imageRequest{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
+    #mainRequest{
+        padding-top: 10px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-family: Arial;
+        font-size: 15px;
+    }
+    #mainRequest p{
+        margin-top: 4px;
+        margin-bottom: 5px;
+    }
+    #mainRequest button{
+        margin-top: 15px;
+        padding: 3px;
+        margin-right: 10px;
+    }
+    #imageRequest img{
+        width: 80px;
+        border-radius: 50%;
+        border: 1px solid violet;
+    }
+  </style>
+</head>
+<body>
+<div class="header col-12">
+    <div class="header1 col-6">
+        <a href="#">QUAT<span>DUO</span></a>
+    </div>
+    <div class="header2 col-6">
+        <button>Nạp tiền</button>
+        <button>Đăng xuất</button>
+    </div>
+</div>
+<div class="content col-12">
+  <div class="headmain col-12"></div>
+  <div class="main col-9">
+      <div class="name col-10">
+        <div class="name1 col-6">
+            <div class="imgname col-6">
+                <img src="images/pho1.jpg" alt="" width="80px">
+            </div>
+            <div class="infoname col-6">
+                <p>ID: </p>
+                <p>Name: </p>
+                <p>Hoạt động:</p>
+                <p>Rank:</p>
+            </div>
+        </div>
+        <div class="name2 col-6">
+            <button>Theo dõi</button>
+            <button>Tặng quà</button>
+        </div>
+      </div>
+        <div class="imgscr col-10">
+            <div class="picture col-5">
+              <img src="images/pho1.jpg" alt="" width="350px">
+
+            </div>
+            <div class="info col-7">
+                <div class="game col-10">
+                    <div class="slide">
+                        <div class="slide-wrapper">
+                            <img src="images/fb_image.png" alt="" width="100px" height="75px">
+                            <img src="images/Valorant-Mobile.jpg" alt="" width="100px" height="75px">
+                            <img src="images/cau-hinh-may-tinh-choi-fo4.jpg" alt="" width="100px" height="75px">
+                            <img src="images/open-graph-2e582ae9fae8b0b396ca46ff21fd47a8.jpg" alt="" width="100px" height="75px">
+                        </div>
+                    </div>
+                </div>
+                <div class="realinfo col-10">
+                    <div class="infogame1 col-12">
+
+                    </div>
+                    <div class="infogame2 col-12">
+                        <button>Chỉnh sửa</button>
+                        <button>Chat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="sidebar col-3">
+      <div class="request">
+          <div id="imageRequest" class="col-6">
+              <img src="images/pho1.jpg" alt="">
+          </div>
+          <div id="mainRequest" class="col-6">
+              <p>Tên: </p>
+              <p>Giờ thuê:</p>
+              <p>Tin nhắn: Đi không em</p>
+              <span><button>Đồng ý</button> <button>Huỷ</button></span>
+          </div>
+      </div>
+      <div class="request"></div>
+      <div class="request"></div>
+      <div class="request"></div>
+      <div class="request"></div>
+      <div class="request"></div>
+  </div>
+<div class="rate col-12">
+    <div class="rateinfo col-5">
+        <div class="form col-12">
+            <form action="#">
+                <h2 style="text-indent: 30px">Đánh giá</h2>
+                <textarea></textarea>
+                <input type="submit" value="Submit">
+            </form>
+            <div class="bluan col-12">
+
+            </div>
+        </div>
+    </div>
+    <div class="dexuat col-3">
+        <h2>Đề xuất</h2>
+        <div class="xx">
+            <img src="images/photo_20230430_185518_148_R83186.jpg" alt="" width="80px">
+        </div>
+        <div class="xx"></div>
+        <div class="xx"></div>
+        <div class="xx"></div>
+    </div>
+</div>
+</div>
+<div class="footer col-12">
+</div>
+
+</body>
+</html>
