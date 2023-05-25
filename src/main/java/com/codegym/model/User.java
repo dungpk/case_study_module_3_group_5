@@ -21,9 +21,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.country = country;
-    }
-
-    public int getId() {
+    }public int getId() {
         return id;
     }
     public void setId(int id) {
