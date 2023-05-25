@@ -1,4 +1,4 @@
-package com.codegym.dao;
+package com.codegym.dao.userDAO;
 
 import com.codegym.model.User;
 

@@ -1,5 +1,6 @@
-package com.codegym.dao;
+package com.codegym.dao.userDAO;
 
+import com.codegym.dao.userDAO.IUserDAO;
 import com.codegym.model.User;
 
 import java.math.BigDecimal;

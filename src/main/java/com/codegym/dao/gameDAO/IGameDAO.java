@@ -1,2 +1,5 @@
-package com.codegym.dao.gameDAO;public interface IGameDAO {
+package com.codegym.dao.gameDAO;
+
+public interface IGameDAO {
+
 }
