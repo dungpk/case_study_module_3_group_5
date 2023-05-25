@@ -1,6 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.userDAO.UserDAO;
+import com.codegym.dao.UserDAO;
 import com.codegym.model.User;
 
 import java.io.IOException;
