@@ -43,7 +43,7 @@ public class QuatDuo extends HttpServlet{
                     System.out.println(request.getParameter(request.getLocalName()));
                     confirmLogin(request, response);
                     break;
-                case "search":
+                case "search_player":
                     searchPlayer(request, response);
                 default:
                     break;
@@ -63,7 +63,11 @@ public class QuatDuo extends HttpServlet{
             switch (action) {
                 case "login":
                     showFormLogin(request, response);
-                default:
+                    break;
+                case "search_player_by_game":
+                    searchPlayerByGame(request, response);
+                    break;
+                    default:
 
                     break;
             }
@@ -107,10 +111,21 @@ public class QuatDuo extends HttpServlet{
         }
     }
 
-    private void searchPlayer(HttpServletRequest request, HttpServletResponse response){
+    private void searchPlayer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PlayerDAO playerDao = new PlayerDAO();
         String name = request.getParameter("search");
-        List<Player> players = playerDao.searchPlayer(name);
+        List<Player> playerList = playerDao.searchPlayer(name);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        request.setAttribute("playerList", playerList);
+        dispatcher.forward(request, response);
+    }
 
+    private void    searchPlayerByGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        PlayerDAO playerDao = new PlayerDAO();
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<Player> playerList = playerDao.searchPlayerByGame(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        request.setAttribute("playerList", playerList);
+        dispatcher.forward(request, response);
     }
 }

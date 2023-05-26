@@ -133,6 +133,35 @@ public class PlayerDAO implements IPlayerDAO{
     }
 
 
+    public List<Player> searchPlayerByGame(int id) {
+        List<Player> list = new ArrayList<>();
+        String query = "{CALL search_player_by_game(?)}";
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(query)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+
+                int player_id = rs.getInt("id_player");
+                String name = rs.getString("name");
+                String source_img = rs.getString("source_img");
+                int price = rs.getInt("price");
+                int rate = rs.getInt("rate");
+                Player player = new Player(player_id,name,source_img,rate,price);
+                list.add(player);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return list;
+    }
+
+
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {
