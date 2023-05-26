@@ -51,7 +51,7 @@ public class Player {
 
     public void setActivate(String activate) {
         this.activate = activate;
-    }
+    gt
 
     public String getRank() {
         return rank;
