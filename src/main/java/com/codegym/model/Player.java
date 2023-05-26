@@ -9,6 +9,13 @@ public class Player {
     private int price;
     private int coin;
 
+    public Player(int player_id, String name, String img, int rate, int price) {
+        this.player_id = player_id;
+        this.name = name;
+        this.img = img;
+        this.rate = rate;
+        this.price = price;
+    }
 
     public Player() {
     }

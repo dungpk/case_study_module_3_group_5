@@ -13,7 +13,8 @@
 <div class="header col-12">
     <div class="header1 col-6">
         <h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2>
-        <form action="">
+        <form action="/quat" method = "post">
+            <input hidden="hidden" name="action" value = "search_player">
             <input type="text" name="search" id="search" placeholder="  Enter something">
             <a href="" id="btn-search"><i class="gg-search"></i></a>
             <input type="submit" id="submit">
@@ -30,8 +31,8 @@
     <div class="sidebar_items col-12">
         <c:forEach items="${requestScope['gameList']}" var="game">
             <div class="imgside">
-                <a href="/quat?action=searchPage&id=${game.getId()}"><img src="${game.getImageSource()}" alt=""></a>
-                <a href="/quat?action=searchPage&id=${game.getId()}">${game.getName()}</a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}" >${game.getName()}</a>
             </div>
         </c:forEach>
     </div>
