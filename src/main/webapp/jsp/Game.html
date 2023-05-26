@@ -80,18 +80,42 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 1000px;
+        height: 600px;
       }
       .form{
+          justify-content: center;
         display: flex;
-        align-items: center;
-        height: 300px;
+          flex-direction: column;
+        height: 600px;
         background-color: #1f1f22;
         color: #fff;
+          font-family: Tahoma;
+          font-size: 17px;
+          border-radius: 10px;
       }
       .form input{
         margin-left: 20px;
+          margin-top: 20px;
       }
+      #submit{
+          background-color: #03e9f4;
+          color: white;
+          padding: 5px 8px;
+          border: none;
+          border-radius: 5px;
+          font-size: 15px;
+          font-family: Tahoma;
+          width: 100px;
+      }
+      #submit:hover{
+          color: #03e9f4;
+          background-color: white;
+          cursor: pointer;
+      }
+      .form h2{
+          margin-left: 20px;
+      }
+
   </style>
 </head>
 <body>
@@ -102,12 +126,50 @@
       <div class="header2 col-6"></div>
 </div>
 <div class="content col-12">
-    <form action="#" class="form col-10">
-        <input type="checkbox" name="game" value="CSGO">CSGO
-      <input type="checkbox" name="game" value="fifa">FO4
-      <input type="checkbox" name="game" value="lol">LOL
-      <input type="checkbox" name="game" value="freefire">Free fire
-      <input type="checkbox" name="game" value="pubg">PUBG
+    <form action="#" class="form col-4" method="post">
+
+        <h2>Check the game you play:</h2>
+        <div class="group">
+            <input type="checkbox" name="game[]" value="CSGO" id="cs">
+            <label for="cs">CSGO</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" value="FO4" id="fifa">
+            <label for="fifa">FO4</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="lol" value="Liên minh huyền thoại">
+            <label for="lol">Liên minh huyền thoại</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="ff" value="Free fire">
+            <label for="ff">Free fire</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="pubg" value="PUBG">
+            <label for="pubg">PUBG</label>
+        </div>
+        <div class="group">
+             <input type="checkbox" name="game[]" id="cod" value="COD">
+            <label for="cod">COD</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="val" value="Valorant">
+            <label for="val">Valorant</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="gta" value="GTA V">
+            <label for="gta">GTA V</label>
+        </div>
+        <div class="group">
+            <input type="checkbox" name="game[]" id="tocchien" value="Liên minh tốc chiến">
+            <label for="tocchien">Liên minh tốc chiến</label>
+        </div>
+        <div class="group">
+             <input type="checkbox" name="game[]" id="dota" value="Dota 2">
+            <label for="dota">Dota 2</label>
+        </div>
+        <input type="submit" id="submit" value="Submit">
     </form>
 </div>
 

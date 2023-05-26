@@ -188,7 +188,7 @@
             text-indent: 10px;
             font-family: Tahoma;
             color: white;
-            font-size: 17px;
+            font-size: 14px;
             height: 25%;
             display: block;
         }
@@ -207,7 +207,7 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2>
+        <a href=""><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
     </div>
     <div class="header2 col-6">
         <a href="#"><h2>Trang chủ</h2></a>
@@ -265,11 +265,11 @@
         <c:forEach items="${requestScope['playerList']}" var="player">
             <div class="detail_player col-3 vip">
                 <div class="detail_pic col-12">
-                    <img src="${player.getImg()}" alt="">
+                    <a href="/quat?action=&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <p>Name: ${player.getName()}</p>
-                    <p>Giá thuê: ${player.getPrice()}</p>
+                    <a href="/quat?action=&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
                 </div>
             </div>
         </c:forEach>

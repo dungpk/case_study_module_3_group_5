@@ -65,7 +65,7 @@
                 </div>
                 <div class="detail">
                     <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
-                    <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
+                    <p>Giá thuê: <span class="price">${player.getPrice()} coin/trận</span></p>
                 </div>
             </div>
         </c:forEach>
