@@ -103,9 +103,11 @@ button:hover{
 }
 ::-webkit-scrollbar-track{
     background: #141e30;
+    border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb{
     background: #03e9f4;
+    border-radius: 2px;
 }
 .content{
     height: 100%;
@@ -156,12 +158,35 @@ button:hover{
     justify-content: center;
 }
 .box{
+    display: flex;
     height: 90%;
     border-radius: 10px;
     background: #1f1f22;
     font-family: Tahoma;
     font-size: 15px;
+    color: #FFF;
+    flex-direction: column;
+    padding-top: 20px;
+    overflow: hidden;
+}
+.header-box{
     padding-top: 10px;
     padding-left: 20px;
-    color: #FFF;
+    height: 40%;
+    background: grey;
+    border-radius: 10px;
 }
+.box h1{
+    color: #03e9f4;
+    text-indent: 160px;
+}
+.box p{
+    font-size: 120%;
+    margin-top: 20px;
+    color: #03e9f4;
+}
+.footer-box{
+    padding-top: 20px;
+    height: 40%;
+}
+

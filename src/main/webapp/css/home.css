@@ -242,16 +242,17 @@ body{
     height: 35px;
     background: #1f1f22;
     border: none;
-    color: #fff;
+    color: red;
     border-radius: 8px;
     height: 38px;
     font-size: 15px;
     cursor: pointer;
     font-family: Tahoma;
     font-weight: 900;
+    margin-right: 10px;
 }
 .header2 button:hover{
-    color: red;
+    color: #fff;
 }
 #hot{
     font-family: Arial;
@@ -284,6 +285,13 @@ body{
     font-family: Arial;
 
 }
+::-webkit-scrollbar-track{
+    background: #1f1f22;
+}
+::-webkit-scrollbar-thumb{
+    background: grey;
+    border-radius: 2px;
+}
 #btn-search{
     position: relative;
     left: -16px;
@@ -305,4 +313,7 @@ body{
     font-weight: 600;
     background: #1f1f22;
     cursor: pointer;
+}
+#submit:hover{
+    color: #fff;
 }
