@@ -115,7 +115,7 @@ public class QuatDuo extends HttpServlet{
         PlayerDAO playerDao = new PlayerDAO();
         String name = request.getParameter("search");
         List<Player> playerList = playerDao.searchPlayer(name);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.jsp");
         request.setAttribute("playerList", playerList);
         dispatcher.forward(request, response);
     }
@@ -124,7 +124,7 @@ public class QuatDuo extends HttpServlet{
         PlayerDAO playerDao = new PlayerDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         List<Player> playerList = playerDao.searchPlayerByGame(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.jsp");
         request.setAttribute("playerList", playerList);
         dispatcher.forward(request, response);
     }
