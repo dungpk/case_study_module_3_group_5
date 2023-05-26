@@ -15,7 +15,7 @@ public class AccountDao implements IAccountDao{
 
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "123456";
+    private final String jdbcPassword = "phungkhacdung1998";
 
 
     private static final String CHECK_ACCOUNT_EXIST = "select id,user_name,password,role from account where user_name = ? and password = ?";

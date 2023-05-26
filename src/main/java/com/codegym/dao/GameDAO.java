@@ -9,7 +9,7 @@ import java.util.List;
 public class GameDAO implements IGameDAO {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "123456";
+    private final String jdbcPassword = "phungkhacdung1998";
 
     private static final String INSERT_GAME_SQL = "INSERT INTO Game (name, image_source) VALUES (?,?)";
     private static final String SELECT_GAME_BY_ID = "SELECT id,name,image_source FROM Game WHERE id = ?";

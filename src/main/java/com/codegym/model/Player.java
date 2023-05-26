@@ -4,7 +4,6 @@ public class Player {
     private int id;
     private String name;
     private String img;
-    private String activate;
     private String rank;
     private String price;
 
@@ -12,11 +11,10 @@ public class Player {
     public Player() {
     }
 
-    public Player(int id, String name, String img, String activate, String rank, String price) {
+    public Player(int id, String name, String img, String rank, String price) {
         this.id = id;
         this.name = name;
         this.img = img;
-        this.activate = activate;
         this.rank = rank;
         this.price = price;
     }
@@ -43,14 +41,6 @@ public class Player {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public String getActivate() {
-        return activate;
-    }
-
-    public void setActivate(String activate) {
-        this.activate = activate;
     }
 
     public String getRank() {
