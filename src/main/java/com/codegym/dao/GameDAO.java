@@ -39,14 +39,12 @@ public class GameDAO implements IGameDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_GAME);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
-
             while (rs.next()){
                 int id =rs.getInt("id");
                 String name = rs.getString("name");
                 String image_source = rs.getString("image_source");
 
                 games.add( new Game(id,name,image_source));
-
             }
 
         } catch (SQLException e){

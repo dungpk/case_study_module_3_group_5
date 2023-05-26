@@ -15,7 +15,9 @@ public class AccountDao implements IAccountDao{
 
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
+
     private final String jdbcPassword = "Haido123";
+
 
 
     private static final String CHECK_ACCOUNT_EXIST = "select id,user_name,password,role from account where user_name = ? and password = ?";
@@ -40,12 +42,10 @@ public class AccountDao implements IAccountDao{
     public Account confirmLogin(String userName, String passWord) {
         Account account = null;
         try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(CHECK_ACCOUNT_EXIST);) {
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, passWord);
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {

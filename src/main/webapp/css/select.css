@@ -112,7 +112,6 @@ button:hover{
     float: left;
     background: #1f1f22;
     overflow-y: auto;
-    border-radius: 10px;
 }
 ::-webkit-scrollbar{
     height: 5px;
