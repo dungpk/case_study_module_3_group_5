@@ -88,7 +88,8 @@
 <body>
 <div class="login-box">
     <h2>Login</h2>
-    <form method="post">
+    <form method="post" action="/quat">
+        <input hidden="hidden" name="action" value="login">
         <div class="user-box">
         <input type="text" name="username" required="">
         <label>Username</label>

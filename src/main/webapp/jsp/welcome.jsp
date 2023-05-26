@@ -147,8 +147,8 @@
         <h2 style="color: #fff">About Us</h2>
     </div>
     <div class="header2">
-        <a href="/Admin?action=login"><button>Login</button></a>
-        <a href="/Admin?action=register"><button>
+        <a href="/quat?action=login"><button>Login</button></a>
+        <a href="/quat?action=register"><button>
             Register</button></a>
     </div>
 
@@ -162,10 +162,10 @@
         <a href="#">Setting</a>
     </div>
     <div class="container">
-        <a href="/Admin?action=login"><img src="Welcome/fb_image.png" alt=""></a>
-        <a href="/Admin?action=login"><img src="Welcome/open-graph-2e582ae9fae8b0b396ca46ff21fd47a8.jpg" alt=""></a>
-        <a href="/Admin?action=login"><img src="Welcome/Valorant-Mobile.jpg" alt=""></a>
-        <a href="/Admin?action=login"><img src="Welcome/cau-hinh-may-tinh-choi-fo4.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="Welcome/fb_image.png" alt=""></a>
+        <a href="/quat?action=login"><img src="Welcome/open-graph-2e582ae9fae8b0b396ca46ff21fd47a8.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="Welcome/Valorant-Mobile.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="Welcome/cau-hinh-may-tinh-choi-fo4.jpg" alt=""></a>
     </div>
 </div>
 <div class="footer">
