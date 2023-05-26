@@ -2,9 +2,11 @@ package com.codegym.controller;
 
 import com.codegym.dao.AccountDao;
 import com.codegym.dao.GameDAO;
+import com.codegym.dao.PlayerDAO;
 import com.codegym.dao.UserDAO;
 import com.codegym.model.Account;
 import com.codegym.model.Game;
+import com.codegym.model.Player;
 import com.codegym.model.User;
 
 import java.io.IOException;
@@ -121,9 +123,16 @@ public class QuatDuo extends HttpServlet{
         if(account==null){
             response.sendRedirect("jsp/login.jsp");
         }else{
+            PlayerDAO playerDAO = new PlayerDAO();
             GameDAO gameDAO = new GameDAO();
             List<Game> gameList = gameDAO.getAllGame();
+            List<Player> vipList = playerDAO.vipPlayer();
+            List<Player> hotList = playerDAO.hotPlayer();
+            List<Player> playerList = playerDAO.listPlayer();
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Home.jsp");
+            request.setAttribute("hotList", hotList);
+            request.setAttribute("playerList", playerList);
+            request.setAttribute("vipList", vipList);
             request.setAttribute("gameList", gameList);
             request.setAttribute("account", account);
             dispatcher.forward(request, response);
