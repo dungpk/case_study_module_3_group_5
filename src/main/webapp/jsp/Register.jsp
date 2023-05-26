@@ -123,7 +123,7 @@
 <body>
 <div class="register-box">
   <h2>Register</h2>
-  <form action="/Admin" method="post">
+  <form action="/quat" method="post">
     <div class="user-box">
       <input type="text" name="name" required="">
       <label>Enter your name</label>

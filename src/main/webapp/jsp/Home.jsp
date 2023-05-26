@@ -21,7 +21,7 @@
         </form>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=profile&id=${requestScope['account'].getId()}"><button>Trang cá nhân</button></a>
+        <a href=""><button>Trang cá nhân</button></a>
         <a href=""><button>Đăng xuất</button></a>
         <a href=""><button>Nạp tiền</button></a>
     </div>
@@ -46,11 +46,11 @@
         <c:forEach var="player" items="${requestScope['vipList']}">
             <div class="detail_player col-2 vip">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <img src="${player.getImg()}" alt="">
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
-                    <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
+                    <p>Name: ${player.getName()}</p>
+                    <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>
         </c:forEach>
@@ -61,11 +61,11 @@
         <c:forEach items="${requestScope['hotList']}" var="player">
             <div class="detail_player col-2 hot">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <img src="${player.getImg()}" alt="">
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
-                    <p>Giá thuê: <span class="price">${player.getPrice()} coin/trận</span></p>
+                    <p>Name: ${player.getName()}</p>
+                    <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>
         </c:forEach>
@@ -75,11 +75,11 @@
         <c:forEach items="${requestScope['playerList']}" var="player">
             <div class="detail_player col-2 new">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <img src="${player.getImg()}" alt="">
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=searchPage&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
-                    <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
+                    <p>Name: ${player.getName()}</p>
+                    <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>
         </c:forEach>
