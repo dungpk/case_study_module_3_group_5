@@ -2,6 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.dao.AccountDao;
 import com.codegym.dao.GameDAO;
+import com.codegym.dao.PlayerDAO;
 import com.codegym.dao.UserDAO;
 import com.codegym.model.Account;
 import com.codegym.model.Game;
@@ -43,7 +44,7 @@ public class QuatDuo extends HttpServlet{
                     confirmLogin(request, response);
                     break;
                 case "search":
-                    searchUser(request, response);
+                    searchPlayer(request, response);
                 default:
                     break;
             }
@@ -90,18 +91,26 @@ public class QuatDuo extends HttpServlet{
         if(account==null){
             response.sendRedirect("jsp/login.jsp");
         }else{
+            PlayerDAO playerDAO = new PlayerDAO();
             GameDAO gameDAO = new GameDAO();
             List<Game> gameList = gameDAO.getAllGame();
+            List<Player> vipList = playerDAO.vipPlayer();
+            List<Player> hotList = playerDAO.hotPlayer();
+            List<Player> playerList = playerDAO.listPlayer();
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Home.jsp");
+            request.setAttribute("hotList", hotList);
+            request.setAttribute("playerList", playerList);
+            request.setAttribute("vipList", vipList);
             request.setAttribute("gameList", gameList);
             request.setAttribute("account", account);
             dispatcher.forward(request, response);
         }
     }
 
-    private void searchUser(HttpServletRequest request, HttpServletResponse response){
-        UserDAO userDao = new UserDAO();
+    private void searchPlayer(HttpServletRequest request, HttpServletResponse response){
+        PlayerDAO playerDao = new PlayerDAO();
         String name = request.getParameter("search");
-        List<Player> gameList = userDao.searchPlayer(name);
+        List<Player> players = playerDao.searchPlayer(name);
+
     }
 }

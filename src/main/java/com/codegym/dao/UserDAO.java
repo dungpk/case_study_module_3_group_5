@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDAO implements IUserDAO {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "phungkhacdung1998";
+    private final String jdbcPassword = "123456";
 
     public UserDAO() {
     }
@@ -51,27 +51,5 @@ public class UserDAO implements IUserDAO {
     }
 
 
-    @Override
-    public List<Player> searchPlayer(String name_search) {
-        List<Player> player = new ArrayList<>();
-        String query = "{CALL search_player(?)}";
-        try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
 
-             CallableStatement callableStatement = connection.prepareCall(query)) {
-            // Step 3: Execute the query or update query
-            callableStatement.setString(1,name_search);
-            ResultSet rs = callableStatement.executeQuery();
-
-            // Step 4: Process the ResultSet object.
-            while (rs.next()) {
-                String name = rs.getString("name");
-                String id = rs.getString("id");
-                int rate = rs.getInt("rate");
-            }
-        } catch (SQLException e) {
-            printSQLException(e);
-        }
-        return player;
-    }
 }
