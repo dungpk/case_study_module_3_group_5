@@ -198,6 +198,7 @@ button:hover{
 }
 ::-webkit-scrollbar-thumb{
     background: #03e9f4;
+    border-radius: 2px;
 }
 .footer{
     height: 100px;
@@ -417,4 +418,8 @@ a{
 #submit:hover{
     color: #03e9f4;
     background: #fff;
+}
+textarea{
+    resize: none;
+    overflow: auto;
 }
