@@ -9,7 +9,7 @@ import java.util.List;
 public class GameDAO implements IGameDAO {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "Haido123";
+    private final String jdbcPassword = "123456";
 
     private static final String INSERT_GAME_SQL = "INSERT INTO Game (name, image_source) VALUES (?,?)";
     private static final String SELECT_GAME_BY_ID = "SELECT id,name,image_source FROM Game WHERE id = ?";
@@ -39,14 +39,12 @@ public class GameDAO implements IGameDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_GAME);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
-
             while (rs.next()){
                 int id =rs.getInt("id");
                 String name = rs.getString("name");
                 String image_source = rs.getString("image_source");
 
                 games.add( new Game(id,name,image_source));
-
             }
 
         } catch (SQLException e){
