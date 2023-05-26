@@ -69,8 +69,6 @@ public class UserDAO implements IUserDAO {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getCountry());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -91,9 +89,12 @@ public class UserDAO implements IUserDAO {
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                user = new User(id, name, email, country);
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+                user = new User(id, name, age, email, phone, address, interest);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -117,9 +118,13 @@ public class UserDAO implements IUserDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+
+                users.add( new User(id, name, age, email, phone, address, interest));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -141,8 +146,13 @@ public class UserDAO implements IUserDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                users.add(new User(id, name, email, city));
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+
+                users.add( new User(id, name, age, email, phone, address, interest));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -178,9 +188,12 @@ public class UserDAO implements IUserDAO {
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                user = new User(id, name, email, country);
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+                user = new User(id, name, age, email, phone, address, interest);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -194,8 +207,7 @@ public class UserDAO implements IUserDAO {
         try (Connection connection = getConnection();
              CallableStatement callableStatement = connection.prepareCall(query);) {
             callableStatement.setString(1, user.getName());
-            callableStatement.setString(2, user.getEmail());
-            callableStatement.setString(3, user.getCountry());
+
             callableStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
@@ -223,9 +235,6 @@ public class UserDAO implements IUserDAO {
 
             pstmt.setString(1, user.getName());
 
-            pstmt.setString(2, user.getEmail());
-
-            pstmt.setString(3, user.getCountry());
 
             //thực thi truy vấn SQL và trả về số lượng bản ghi bị ảnh hưởng bởi truy vấn đó
             int rowAffected = pstmt.executeUpdate();
@@ -431,9 +440,12 @@ public class UserDAO implements IUserDAO {
             while (rs.next()) {
                 int id = Integer.parseInt(rs.getString("id"));
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country)) ;
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+                users.add(new User(id, name, age, email, phone, address, interest));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -470,9 +482,12 @@ public class UserDAO implements IUserDAO {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
+                int age = rs.getInt("age");
                 String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                String interest = rs.getString("interest");
+                users.add(new User(id, name, age, email, phone, address, interest));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -487,9 +502,7 @@ public class UserDAO implements IUserDAO {
              CallableStatement callableStatement = connection.prepareCall(query)) {
             // Step 3: Execute the query or update query
             callableStatement.setString(1, user.getName());
-            callableStatement.setString(2, user.getEmail());
-            callableStatement.setString(3, user.getCountry());
-            callableStatement.setInt(4, user.getId());
+            callableStatement.setInt(2, user.getId());
             rowUpdated = callableStatement.executeUpdate() > 0;
 
         }catch (SQLException e) {
@@ -503,9 +516,7 @@ public class UserDAO implements IUserDAO {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
             statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getCountry());
-            statement.setInt(4, user.getId());
+            statement.setInt(2, user.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
         }
