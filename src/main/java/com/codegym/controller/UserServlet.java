@@ -118,9 +118,12 @@ public class UserServlet extends HttpServlet {
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
         String email = request.getParameter("email");
-        String country = request.getParameter("country");
-        User newUser = new User(name, email, country);
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String interest = request.getParameter("interest");
+        User newUser = new User(name,age,email,phone,address,interest);
         userDAO.insertUserStore(newUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user/create.jsp");
         dispatcher.forward(request, response);
@@ -130,11 +133,13 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
         String email = request.getParameter("email");
-        String country = request.getParameter("country");
-
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String interest = request.getParameter("interest");
         System.out.println(request);
-        User book = new User(id, name, email, country);
+        User book = new User(id, name, age, email,phone,address, interest);
         userDAO.updateUser(book);
         listUser(request,response);
     }
@@ -158,7 +163,7 @@ public class UserServlet extends HttpServlet {
 
     private void addUserPermission(HttpServletRequest request, HttpServletResponse response) {
 
-        User user = new User("quan1", "quan1.nguyen@codegym.vn", "vn");
+        User user = new User("quan1",29,"quan1.nguyen@codegym.vn", "0123456789", "Ha Noi","LMHT");
 
         int[] permission = {1, 2, 4};
 
