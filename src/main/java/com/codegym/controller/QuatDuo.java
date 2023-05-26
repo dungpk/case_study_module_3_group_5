@@ -72,6 +72,7 @@ public class QuatDuo extends HttpServlet{
                     break;
                 case "login":
                     showFormLogin(request, response);
+                    break;
                 default:
 
                     break;
