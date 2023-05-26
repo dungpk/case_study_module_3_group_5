@@ -3,17 +3,17 @@ package com.codegym.model;
 public class Game {
     private int id;
     private String name;
-    private String src_img;
+    private String image_source;
 
 
     public Game() {
     }
 
-    public Game(int id, String name, String src_img) {
+    public Game(int id, String name, String image_source) {
         this.id = id;
         this.name = name;
 
-        this.src_img = src_img;
+        this.image_source = image_source;
     }
 
     public int getId() {
@@ -33,11 +33,11 @@ public class Game {
     }
 
 
-    public String getSrc_img() {
-        return src_img;
+    public String getImageSource() {
+        return image_source;
     }
 
     public void setSrc_img(String src_img) {
-        this.src_img = src_img;
+        this.image_source = src_img;
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IGameDAO {
     public List<Game> getAllGame();
-    public Game getNameById(int id);
+    public Game getGameById(int id);
     public void addGame(Game game) throws SQLException;
-    public void updateGame(Game game);
-    public void deleteGame(int id);
+    public boolean updateGame(Game game) throws SQLException;
+    public boolean deleteGame(int id) throws SQLException;
 }
