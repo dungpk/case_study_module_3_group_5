@@ -162,10 +162,10 @@
         <a href="#">Setting</a>
     </div>
     <div class="container">
-        <a href="/quat?action=login"><img src="Welcome/fb_image.png" alt=""></a>
-        <a href="/quat?action=login"><img src="Welcome/open-graph-2e582ae9fae8b0b396ca46ff21fd47a8.jpg" alt=""></a>
-        <a href="/quat?action=login"><img src="Welcome/Valorant-Mobile.jpg" alt=""></a>
-        <a href="/quat?action=login"><img src="Welcome/cau-hinh-may-tinh-choi-fo4.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="../image/game/cs.png" alt=""></a>
+        <a href="/quat?action=login"><img src="../image/game/lienminhhuyenthoai.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="../image/game/valorant.jpg" alt=""></a>
+        <a href="/quat?action=login"><img src="../image/game/fifa.jpg" alt=""></a>
     </div>
 </div>
 <div class="footer">
