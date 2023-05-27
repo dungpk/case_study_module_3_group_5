@@ -89,8 +89,6 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
         return user;
     }
 }
