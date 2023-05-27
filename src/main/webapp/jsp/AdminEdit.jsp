@@ -161,7 +161,16 @@
 <div class="main">
     <form action="">
        <fieldset>
-           <legend><img src="" alt="" width="200px"></legend>
+           <legend>
+               <c:choose>
+                    <c:when test="${requestScope['role'] == 'player'}">
+                        <img src="${requestScope['account'].getImg()}" alt="">
+                    </c:when>
+                   <c:otherwise>
+                       <img src="${requestScope['account'].getImage_source()}" alt="">
+                   </c:otherwise>
+               </c:choose>
+           </legend>
             <label for="username">Username:</label>
            <input type="text" placeholder="Enter" name="username" id="username"><br>
            <label for="password">Password:</label>

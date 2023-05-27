@@ -56,20 +56,23 @@ public class AdminServlet extends HttpServlet {
     private void editProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String role = request.getParameter("role");
+        request.setAttribute("role", role);
         if(role.equals("player")){
             Player player = accountDao.getPlayerByAccountId(id);
-            request.setAttribute("player", player);
+            request.setAttribute("account", player);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
             dispatcher.forward(request, response);
         }else{
-            User user = new User();
+            User user = accountDao.selectUserById(id);
+            request.setAttribute("account", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
+            dispatcher.forward(request, response);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
         dispatcher.forward(request, response);
     }
     private void ListAccount(HttpServletRequest request,HttpServletResponse response){
-        List<Account> accountList = accountDao.listAccountPlayer();
-
+        List<Account> accountList = accountDao.listAccount();
         try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
             request.setAttribute("list", accountList);
