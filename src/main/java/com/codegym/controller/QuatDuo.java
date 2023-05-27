@@ -39,14 +39,12 @@ public class QuatDuo extends HttpServlet{
         }
         try {
             switch (action) {
-                case "create":
-                    System.out.println(request.getParameter(request.getLocalName()));
-                    insertUser(request, response);
-                    break;
                 case "login":
                     System.out.println(request.getParameter(request.getLocalName()));
                     confirmLogin(request, response);
                     break;
+                case "search_player":
+                    searchPlayer(request, response);
                 default:
                     break;
             }
@@ -63,17 +61,15 @@ public class QuatDuo extends HttpServlet{
         }
         try {
             switch (action) {
-                case "create":
-                    showNewForm(request, response);
-                    break;
-                case "delete":
-//                    deleteUser(request, response);
-                    deleteUserUsingStore(request, response);
-                    break;
                 case "login":
                     showFormLogin(request, response);
                     break;
-                default:
+
+                case "search_player_by_game":
+                    searchPlayerByGame(request, response);
+                    break;
+                    default:
+
 
                     break;
             }
@@ -82,31 +78,8 @@ public class QuatDuo extends HttpServlet{
         }
     }
 
-    private void insertUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
-        User newUser = new User();
-        userDAO.insertUserStore(newUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create.jsp");
-        dispatcher.forward(request, response);
-    }
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/create.jsp");
-        dispatcher.forward(request, response);
-    }
 
-    private void deleteUserUsingStore(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        userDAO.deleteUserStore(id);
-        List<User> listUser = userDAO.selectAllUsers();
-        request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
-        dispatcher.forward(request, response);
-    }
+
 
     private void showFormLogin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException{
@@ -138,5 +111,23 @@ public class QuatDuo extends HttpServlet{
             request.setAttribute("account", account);
             dispatcher.forward(request, response);
         }
+    }
+
+    private void searchPlayer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PlayerDAO playerDao = new PlayerDAO();
+        String name = request.getParameter("search");
+        List<Player> playerList = playerDao.searchPlayer(name);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        request.setAttribute("playerList", playerList);
+        dispatcher.forward(request, response);
+    }
+
+    private void    searchPlayerByGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        PlayerDAO playerDao = new PlayerDAO();
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<Player> playerList = playerDao.searchPlayerByGame(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        request.setAttribute("playerList", playerList);
+        dispatcher.forward(request, response);
     }
 }

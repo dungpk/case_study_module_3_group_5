@@ -102,4 +102,80 @@ public class PlayerDAO implements IPlayerDAO{
         return false;
     }
 
+    @Override
+    public List<Player> searchPlayer(String name_search) {
+        List<Player> list = new ArrayList<>();
+        String query = "{CALL search_player(?)}";
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(query)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setString(1,name_search);
+            ResultSet rs = callableStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int account_id = rs.getInt("foreign_account");
+                int player_id = rs.getInt("id_player");
+                String name = rs.getString("name");
+                String source_img = rs.getString("source_img");
+                int coin = rs.getInt("coin");
+                int rate = rs.getInt("rate");
+                int price = rs.getInt("price");
+                Player player = new Player(player_id, account_id, name, rate, price, coin, source_img);
+                list.add(player);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return list;
+    }
+
+
+    public List<Player> searchPlayerByGame(int id) {
+        List<Player> list = new ArrayList<>();
+        String query = "{CALL search_player_by_game(?)}";
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(query)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,id);
+            ResultSet rs = callableStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+
+                int player_id = rs.getInt("id_player");
+                String name = rs.getString("name");
+                String source_img = rs.getString("source_img");
+                int price = rs.getInt("price");
+                int rate = rs.getInt("rate");
+                Player player = new Player(player_id,name,source_img,rate,price);
+                list.add(player);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return list;
+    }
+
+
+    private void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
+    }
+
 }

@@ -10,6 +10,8 @@ public interface IPlayerDAO {
     List<Player> vipPlayer();
     List<Player> hotPlayer();
     List<Player> listPlayer();
+
+    public List<Player> searchPlayer(String name_search);
     public boolean updateProfile(Player player) throws SQLException;
 
 }
