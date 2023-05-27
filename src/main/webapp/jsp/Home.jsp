@@ -23,7 +23,7 @@
     <div class="header2 col-6">
         <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
-        <a href=""><button>Nạp tiền</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><button>Nạp tiền</button></a>
     </div>
 </div>
 <div class="sidebar col-2">

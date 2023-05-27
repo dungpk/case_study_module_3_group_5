@@ -81,7 +81,6 @@ public class QuatDuo extends HttpServlet{
                 case "display_player":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayPlayer(request, response);
-
                 case "profile":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayProfile(request, response);
@@ -93,6 +92,14 @@ public class QuatDuo extends HttpServlet{
                 case "accept_refuse":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     showFormRefuse(request, response);
+                    break;
+                case "deposit":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    showDepositForm(request, response);
+                    break;
+                case "coin_deposit":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    deposit(request, response);
                     break;
                     default:
                     break;
@@ -242,6 +249,16 @@ public class QuatDuo extends HttpServlet{
         }
 
     }
+    private void showDepositForm(HttpServletRequest request, HttpServletResponse response){
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Deposit.jsp");
+        try{
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void showFormAccept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/acceptRequest.jsp");
         dispatcher.forward(request, response);
@@ -254,6 +271,20 @@ public class QuatDuo extends HttpServlet{
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    private void deposit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("account_id"));
+        int coin = Integer.parseInt(request.getParameter("coin"));
+        User user = userDAO.getUserByAccountId(id);
+        if(user.getName() != null){
+            int currentCoin = user.getCoin();
+            int afterDeposit = currentCoin + coin;
+            userDAO.deposit(id, afterDeposit);
+            request.setAttribute("id", id);
+            request.setAttribute("coin", afterDeposit);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/DepositSuccess.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }
