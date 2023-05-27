@@ -215,46 +215,13 @@
 <div class="sidebar col-2">
     <h3>Danh mục game</h3>
     <div class="sidebar_items col-12">
-        <div class="imgside">
-            <img src="../image/game/lienminhhuyenthoai.jpg" alt="" width="60px">
-            <a href="#">Liên minh huyền thoại</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/valorant.jpg" alt="" width="60px">
-            <a href="#">Valorant</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/cs.png" alt="" width="60px">
-            <a href="#">CSGO</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/fifa.jpg" alt="">
-            <a href="#">FO4</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/pubg.jpg" alt="" width="60px">
-            <a href="#">PUBG</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/dota_2.jpg" alt="">
-            <a href="#">Dota</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/gta.jpg" alt="">
-            <a href="#">GTA V</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/cod.jpg" alt="">
-            <a href="#">Call of Duty</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/tocchien.jpg" alt="">
-            <a href="#">Liên minh tốc chiến</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/free_fire.jpg" alt="">
-            <a href="#">Free fire</a>
-        </div>
+        <c:forEach items="${requestScope['gameList']}" var="game">
+            <div class="imgside">
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" >${game.getName()}</a>
+            </div>
+        </c:forEach>
+
     </div>
 </div>
 <div class="content col-10">
