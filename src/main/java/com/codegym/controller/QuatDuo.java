@@ -109,7 +109,6 @@ public class QuatDuo extends HttpServlet{
         String name = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountDao.confirmLogin(name,password);
-
         if(account==null){
             response.sendRedirect("jsp/login.jsp");
         }else{
@@ -214,13 +213,10 @@ public class QuatDuo extends HttpServlet{
 
 
         }else{
-
             Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
             List<Game> games = playerDAO.searchGameByIdPlayer(player.getPlayer_id());
             request.setAttribute("listGameOfPlayer",games);
             request.setAttribute("player",player);
-
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
             dispatcher.forward(request, response);
 

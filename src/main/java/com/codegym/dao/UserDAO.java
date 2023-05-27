@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDAO implements IUserDAO {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "Haido123";
+    private final String jdbcPassword = "123456";
 
 
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";

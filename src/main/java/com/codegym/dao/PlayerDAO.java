@@ -10,7 +10,7 @@ import java.util.List;
 public class PlayerDAO implements IPlayerDAO{
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "Haido123";
+    private final String jdbcPassword = "123456";
 
     private static final String SELECT_VIP_PLAYER = "SELECT * from player where rate = 5";
     private static final String SELECT_HOT_PLAYER = "SELECT * from player where rate = 4";
