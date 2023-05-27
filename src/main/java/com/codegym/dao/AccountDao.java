@@ -24,7 +24,6 @@ public class AccountDao implements IAccountDao{
     private static final String CREATE_ACCOUNT = "insert into account (user_name, password, role) VALUES (?,?,?)";
 
     private static final String GET_ID_BY_NAME = "select id from account where user_name = ?";
-
     public AccountDao(){
     }
 
