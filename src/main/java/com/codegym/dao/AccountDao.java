@@ -3,6 +3,7 @@ package com.codegym.dao;
 import com.codegym.model.Account;
 import com.codegym.model.Game;
 import com.codegym.model.Player;
+import com.codegym.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,6 +33,13 @@ public class AccountDao implements IAccountDao{
             "FROM player\n" +
             "INNER JOIN account ON player.foreign_account = account.id\n" +
             "WHERE account.id = ?";
+    private static final String GET_USER_BY_ACCOUNT_ID = "SELECT user.*\n" +
+            "FROM user\n" +
+            "INNER JOIN account ON user.foreign_account = account.id\n" +
+            "WHERE account.id = ?";
+
+    private static final String GET_PLAYER_ACCOUNT_LIST = "SELECT * FROM account where role = ?";
+
     public AccountDao(){
     }
 
@@ -175,6 +183,61 @@ public class AccountDao implements IAccountDao{
             printSQLException(e);
         }
         return null;
+    }
+    public List<Account> listAccountPlayer(){
+        List<Account> list = new ArrayList<>();
+        try(Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
+            preparedStatement.setString(1, "player");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String username = rs.getString("user_name");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                Account account = new Account(id, username, password, role);
+                list.add(account);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    public List<Account> listAccountUser(){
+        List<Account> list = new ArrayList<>();
+        try(Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
+            preparedStatement.setString(1, "user");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String username = rs.getString("user_name");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                Account account = new Account(id, username, password, role);
+                list.add(account);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    public User selectUserById(int id){
+        User user = new User();
+        try(Connection connection = getConnection()){
+            PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ACCOUNT_ID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                int user_id = rs.getInt("id");
+                String name = rs.getString("name");
+                int coin = rs.getInt("coin");
+                user = new User(user_id, name , coin);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 
     private void printSQLException(SQLException ex) {

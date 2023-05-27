@@ -61,17 +61,19 @@
       </div>
   </div>
   <div class="sidebar col-3">
+      <c:forEach items="${requestScope['requests']}" var="request">
       <div class="request">
           <div id="imageRequest" class="col-6">
               <img src="../image/player/default.jpg" alt="">
           </div>
           <div id="mainRequest" class="col-6">
-              <p>Tên: </p>
-              <p>Giờ thuê:</p>
-              <p>Tin nhắn: Đi không em</p>
+              <p>Tên: ${request.getUserName()}</p>
+              <p>Giờ thuê: ${request.getHours()}</p>
+              <p>Tin nhắn: ${request.getDescription()}</p>
               <span><button>Đồng ý</button> <button>Huỷ</button></span>
           </div>
       </div>
+      </c:forEach>
       <div class="request"></div>
       <div class="request"></div>
       <div class="request"></div>

@@ -137,10 +137,18 @@ public class QuatDuo extends HttpServlet{
     private void confirmLogin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException{
         AccountDao accountDao = new AccountDao();
+        PlayerDAO playerDAO = new PlayerDAO();
         String name = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountDao.confirmLogin(name,password);
-        if(account==null){
+        if(name.equals("admin") && password.equals("admin")){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
+            request.setAttribute("userCoin", userDAO.listCoin());
+            request.setAttribute("playerCoin", playerDAO.listCoin());
+            request.setAttribute("listPlayer", accountDao.listAccountPlayer());
+            request.setAttribute("listUser", accountDao.listAccountUser());
+            dispatcher.forward(request, response);
+        }else if(account==null){
             response.sendRedirect("jsp/login.jsp");
         }else{
             request.setAttribute("id",account.getId());
