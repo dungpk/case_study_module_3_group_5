@@ -122,6 +122,7 @@ public class QuatDuo extends HttpServlet{
             int idForeign = accountDao.getIdByUserName(userName);
             playerDAO.createPlayer(name,0,0,0,idForeign);
             profileDao.createProfile(age,address,email,idForeign);
+            request.setAttribute("idForeign",idForeign);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Game.html");
             dispatcher.forward(request,response);
         }
