@@ -9,6 +9,7 @@ public class ProfileDao implements IProfileDao {
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "123456";
 
+    private static final String CREATE_PROFILE = "insert into profile (age, address, email, account_id) VALUES (?,?,?,?)";
 
     public ProfileDao(){
     }
@@ -25,6 +26,19 @@ public class ProfileDao implements IProfileDao {
         return connection;
     }
 
+    public void createProfile(int age, String address, String email, int account_id){
+        try(Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_PROFILE);
+            preparedStatement.setInt(1,age);
+            preparedStatement.setString(2,address);
+            preparedStatement.setString(3, email);
+            preparedStatement.setInt(4,account_id);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e){
+            printSQLException(e);
+        }
+    }
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {
             if (e instanceof SQLException) {

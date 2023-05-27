@@ -35,6 +35,9 @@ public class AccountDao implements IAccountDao{
     public AccountDao(){
     }
 
+    public AccountDao(String userName, String password, String role) {
+    }
+
     protected Connection getConnection() {
         Connection connection = null;
         try {

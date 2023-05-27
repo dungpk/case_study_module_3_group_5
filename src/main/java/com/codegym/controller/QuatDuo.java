@@ -44,6 +44,8 @@ public class QuatDuo extends HttpServlet{
                 case "createUser":
                     createUser(request, response);
                     break;
+                case "createPlayer":
+                    createPlayer(request,response);
                 default:
                     break;
             }
@@ -97,8 +99,34 @@ public class QuatDuo extends HttpServlet{
         }
     }
 
+    private void createPlayer(HttpServletRequest request,HttpServletResponse response)
+        throws ServletException, SQLException, IOException{
+        String userName = request.getParameter("username");
+        String password = request.getParameter("password");
+        String confirm = request.getParameter("confirm");
+        String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
 
+        AccountDao accountDao = new AccountDao();
+        PlayerDAO playerDAO = new PlayerDAO();
+        ProfileDao profileDao = new ProfileDao();
 
+        boolean checkAccount = accountDao.checkAccountExist(userName);
+
+        if(checkAccount || !password.equals(confirm)){
+            response.sendRedirect("jsp/playerRegister.html");
+        } else {
+            accountDao.createAccount(userName,password,"player");
+            int idForeign = accountDao.getIdByUserName(userName);
+            playerDAO.createPlayer(name,0,0,0,idForeign);
+            profileDao.createProfile(age,address,email,idForeign);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Game.html");
+            dispatcher.forward(request,response);
+        }
+
+    }
 
     private void showFormLogin(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException{

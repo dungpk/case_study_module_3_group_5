@@ -16,6 +16,8 @@ public class PlayerDAO implements IPlayerDAO{
     private static final String SELECT_HOT_PLAYER = "SELECT * from player where rate = 4";
     private static final String SELECT_ALL_PLAYER = "SELECT * from player";
     private static final String GET_PLAYER_BY_ID = "SELECT * FROM player WHERE id_player = ?";
+
+    private static final String CREATE_PLAYER = "insert into player (name, coin, rate, price, foreign_account) VALUES (?,?,?,?,?)";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -74,6 +76,21 @@ public class PlayerDAO implements IPlayerDAO{
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public void createPlayer(String name, int coin, int rate, int price, int foreign_account){
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_PLAYER);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2,coin);
+            preparedStatement.setInt(3,rate);
+            preparedStatement.setInt(4,price);
+            preparedStatement.setInt(5,foreign_account);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e){
+            printSQLException(e);
+        }
     }
 
     @Override
