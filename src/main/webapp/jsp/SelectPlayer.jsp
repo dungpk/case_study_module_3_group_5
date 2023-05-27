@@ -13,7 +13,7 @@
         <a href="#">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=goHomePage"><button>Trang chủ</button></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
         <button>Nạp tiền</button>
         <button>Đăng xuất</button>
     </div>
@@ -23,8 +23,8 @@
     <div class="sidebar col-2">
         <c:forEach items="${requestScope['gameList']}" var="game">
             <div class="imgside">
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}" ><img src="${game.getImageSource()}" alt=""></a>
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}" >${game.getName()}</a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" >${game.getName()}</a>
             </div>
         </c:forEach>
     </div>
