@@ -1,13 +1,7 @@
 package com.codegym.controller;
 
-import com.codegym.dao.AccountDao;
-import com.codegym.dao.GameDAO;
-import com.codegym.dao.PlayerDAO;
-import com.codegym.dao.UserDAO;
-import com.codegym.model.Account;
-import com.codegym.model.Game;
-import com.codegym.model.Player;
-import com.codegym.model.User;
+import com.codegym.dao.*;
+import com.codegym.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -69,6 +63,7 @@ public class QuatDuo extends HttpServlet{
                 case "login":
                     showFormLogin(request, response);
                     break;
+
                 case "search_player_by_game":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     searchPlayerByGame(request, response);
@@ -86,6 +81,10 @@ public class QuatDuo extends HttpServlet{
                 case "display_player":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayPlayer(request, response);
+
+                case "profile":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    displayProfile(request, response);
                     break;
                     default:
                     break;
@@ -138,6 +137,9 @@ public class QuatDuo extends HttpServlet{
 
     private void searchPlayer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PlayerDAO playerDao = new PlayerDAO();
+        GameDAO gameDAO = new GameDAO();
+        List<Game> gameList = gameDAO.getAllGame();
+        request.setAttribute("gameList", gameList);
         String name = request.getParameter("search");
         List<Player> playerList = playerDao.searchPlayer(name);
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.jsp");
@@ -175,7 +177,11 @@ public class QuatDuo extends HttpServlet{
             accountDao.createAccount(userName,password,"user");
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name,0,idForeign);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+            dispatcher.forward(request,response);
         }
+
+
     }
     private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.sendRedirect("jsp/welcome.jsp");
@@ -192,5 +198,33 @@ public class QuatDuo extends HttpServlet{
         request.setAttribute("listGameOfPlayer",games);
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SelectPlayer.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void displayProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+        PlayerDAO playerDAO = new PlayerDAO();
+        ProfileDao profileDao = new ProfileDao();
+        Profile profile = profileDao.getProfileByAccountId(Integer.parseInt(request.getParameter("account_id")));
+        request.setAttribute("profile",profile);
+
+        AccountDao accountDao = new AccountDao();
+        String role = accountDao.getRoleByAccountId(Integer.parseInt(request.getParameter("account_id")));
+
+        if(role.equals("user")){
+
+
+        }else{
+
+            Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
+            List<Game> games = playerDAO.searchGameByIdPlayer(player.getPlayer_id());
+            request.setAttribute("listGameOfPlayer",games);
+            request.setAttribute("player",player);
+
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
+            dispatcher.forward(request, response);
+
+        }
+
     }
 }

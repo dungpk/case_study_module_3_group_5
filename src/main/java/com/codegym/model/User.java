@@ -8,7 +8,7 @@ public class User {
     private String phone;
     private String address;
     private String interest;
-
+   private String image_source;
 
     public User()
     {}
@@ -20,18 +20,10 @@ public class User {
         this.phone = phone;
         this.address = address;
         this.interest = interest;
+        this.image_source = "../image/player/default.jpg";
     }
 
-    public User(int id, String name, int age, String email, String phone, String address, String interest) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.interest = interest;
-    }
+
     public int getId() {
         return id;
     }

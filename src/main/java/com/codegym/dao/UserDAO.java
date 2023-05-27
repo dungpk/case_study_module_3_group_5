@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUserDAO {
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
-    private final String jdbcPassword = "123456";
+    private final String jdbcPassword = "Haido123";
+
 
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
 
@@ -51,6 +52,7 @@ public class UserDAO implements IUserDAO {
             }
         }
     }
+
 
     @Override
     public void createUser(String name, int coin, int foreign_account) {
