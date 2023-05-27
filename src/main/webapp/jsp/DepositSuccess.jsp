@@ -137,7 +137,7 @@
     </div>
 </div>
 <div class="main col-10">
-    <a href="/quat?action=goHomePage&id=${requestScope['id']}"><h2>Nạp tiền thành công! Số dư hiện tại: ${requestScope['coin']}</h2></a>
+    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2>Nạp tiền thành công! Số dư hiện tại: ${requestScope['coin']}</h2></a>
 </div>
 </body>
 </html>

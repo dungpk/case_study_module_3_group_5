@@ -280,7 +280,7 @@ public class QuatDuo extends HttpServlet{
         if(user.getName() != null){
             int currentCoin = user.getCoin();
             int afterDeposit = currentCoin + coin;
-            userDAO.deposit(id, afterDeposit);
+            userDAO.deposit(afterDeposit , id);
             request.setAttribute("id", id);
             request.setAttribute("coin", afterDeposit);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/DepositSuccess.jsp");

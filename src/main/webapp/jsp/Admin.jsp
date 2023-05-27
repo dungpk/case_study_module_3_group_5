@@ -139,6 +139,20 @@
         padding: 5px;
         margin-left: 5px;
       }
+      #create{
+          text-decoration: none;
+          color: #03e9f4;
+          font-family: Tahoma;
+          font-size: 20px;
+          cursor: pointer;
+      }
+      #create:hover{
+          display: block;
+          width: 300px;
+          height: 30px;
+          background-color: #03e9f4;
+          color: white;
+      }
     </style>
 </head>
 <body>
@@ -152,6 +166,7 @@
 </div>
 <div class="main col-12">
     <div class="content col-10">
+        <a href="/admin?action=create" id="create">Tạo một dân chơi</a>
         <table>
             <tr>
               <th>ID</th>
