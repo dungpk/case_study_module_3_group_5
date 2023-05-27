@@ -88,7 +88,10 @@ public class QuatDuo extends HttpServlet{
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayPlayer(request, response);
                     break;
-                    default:
+                case "playerRegister":
+                    playerRegister(request,response);
+                    break;
+                default:
                     break;
             }
         } catch (SQLException ex) {
@@ -179,8 +182,12 @@ public class QuatDuo extends HttpServlet{
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
             dispatcher.forward(request,response);
         }
+    }
 
-
+    private void playerRegister(HttpServletRequest request,HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRegister.html");
+        dispatcher.forward(request,response);
     }
     private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.sendRedirect("jsp/welcome.jsp");
