@@ -2,6 +2,7 @@ package com.codegym.dao;
 
 import com.codegym.model.Account;
 import com.codegym.model.Game;
+import com.codegym.model.Player;
 import com.codegym.model.User;
 
 import java.util.List;
@@ -12,4 +13,7 @@ public interface IAccountDao {
     void createAccount(String user_name,String password,String role);
 
     int getIdByUserName(String userName);
+    String getRoleByAccountId(int account_id);
+
+    Player getPlayerByAccountId(int accountID);
 }
