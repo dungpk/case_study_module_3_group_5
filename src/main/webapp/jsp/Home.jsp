@@ -12,8 +12,9 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
         <form action="/quat" method = "post">
+            <input type="hidden" name="account_id" value="${requestScope['id']}">
             <input hidden="hidden" name="action" value = "search_player">
             <input type="text" name="search" id="search" placeholder="  Enter something">
             <a href="" id="btn-search"><i class="gg-search"></i></a>
@@ -31,8 +32,8 @@
     <div class="sidebar_items col-12">
         <c:forEach items="${requestScope['gameList']}" var="game">
             <div class="imgside">
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}" ><img src="${game.getImageSource()}" alt=""></a>
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}" >${game.getName()}</a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" >${game.getName()}</a>
             </div>
         </c:forEach>
     </div>
@@ -46,10 +47,10 @@
         <c:forEach var="player" items="${requestScope['vipList']}">
             <div class="detail_player col-2 vip">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>
@@ -61,10 +62,10 @@
         <c:forEach items="${requestScope['hotList']}" var="player">
             <div class="detail_player col-2 hot">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>
@@ -75,10 +76,10 @@
         <c:forEach items="${requestScope['playerList']}" var="player">
             <div class="detail_player col-2 new">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>
             </div>

@@ -206,10 +206,10 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href=""><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
     </div>
     <div class="header2 col-6">
-        <a href="#"><h2>Trang chủ</h2></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2>Trang chủ</h2></a>
     </div>
 </div>
 <div class="sidebar col-2">

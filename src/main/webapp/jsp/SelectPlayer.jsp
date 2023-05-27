@@ -13,7 +13,7 @@
         <a href="#">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <button>Trang chủ</button>
+        <a href="/quat?action=goHomePage"><button>Trang chủ</button></a>
         <button>Nạp tiền</button>
         <button>Đăng xuất</button>
     </div>
@@ -38,14 +38,14 @@
                     <p>Xin chao minh la chao day</p>
                 </div>
                 <div id="game-dish" class="col-10">
-                    <c:forEach items="${requestScope['ListGameOfPlayer']}" var="game">
+                    <c:forEach items="${requestScope['listGameOfPlayer']}" var="game">
                         <img src="${game.getImageSource()}" alt="">
                     </c:forEach>
                 </div>
                 <div id="bottom-dish" class="col-12">
                     <p>ID: ${requestScope['player'].getPlayer_id()}</p>
                     <p>Tên: ${requestScope['player'].getName()}</p>
-                    <p>Giá: ${requestScope['player'].getPrice()}</p>
+                    <p>Giá: ${requestScope['player'].getPrice()} coin/trận</p>
                     <button>Thuê</button>
                     <button>Nhắn tin</button>
                 </div>
