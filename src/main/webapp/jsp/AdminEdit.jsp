@@ -161,7 +161,7 @@
 <div class="main">
     <form action="">
        <fieldset>
-           <legend><img src="../image/Admin/default.jpg" alt="" width="200px"></legend>
+           <legend><img src="" alt="" width="200px"></legend>
             <label for="username">Username:</label>
            <input type="text" placeholder="Enter" name="username" id="username"><br>
            <label for="password">Password:</label>

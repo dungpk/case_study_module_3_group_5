@@ -9,9 +9,33 @@ public class User {
     private String address;
     private String interest;
    private String image_source;
+   private int coin;
 
-    public User()
-    {}
+    public User(int id, String name, int coin) {
+        this.id = id;
+        this.name = name;
+        this.coin = coin;
+        this.image_source = "../image/player/default.jpg";
+    }
+
+    public User() {
+    }
+
+    public String getImage_source() {
+        return image_source;
+    }
+
+    public void setImage_source(String image_source) {
+        this.image_source = image_source;
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
+    }
 
     public User(String name, int age, String email, String phone, String address, String interest) {
         this.name = name;
@@ -22,6 +46,8 @@ public class User {
         this.interest = interest;
         this.image_source = "../image/player/default.jpg";
     }
+
+
 
 
     public int getId() {

@@ -16,6 +16,7 @@ public class PlayerDAO implements IPlayerDAO{
     private static final String SELECT_HOT_PLAYER = "SELECT * from player where rate = 4";
     private static final String SELECT_ALL_PLAYER = "SELECT * from player";
     private static final String GET_PLAYER_BY_ID = "SELECT * FROM player WHERE id_player = ?";
+    private static final String GET_LIST_COIN = "SELECT coin from player";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -46,6 +47,19 @@ public class PlayerDAO implements IPlayerDAO{
                 int price = rs.getInt("price");
                 Player player = new Player(player_id, account_id, name, rate, price, coin, source_img);
                 list.add(player);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    public List<Integer> listCoin(){
+        List<Integer> list = new ArrayList<>();
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_LIST_COIN);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                list.add(rs.getInt("coin"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
