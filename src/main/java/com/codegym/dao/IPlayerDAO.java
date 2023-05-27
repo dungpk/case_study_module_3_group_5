@@ -13,5 +13,5 @@ public interface IPlayerDAO {
 
     public List<Player> searchPlayer(String name_search);
     public boolean updateProfile(Player player) throws SQLException;
-
+    public Player searchPlayerById(int id);
 }
