@@ -86,6 +86,12 @@ public class QuatDuo extends HttpServlet{
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayProfile(request, response);
                     break;
+                case "accept_request":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    break;
+                case "accept_refuse":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    break;
                     default:
                     break;
             }
@@ -232,6 +238,9 @@ public class QuatDuo extends HttpServlet{
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
             dispatcher.forward(request, response);
         }
+
+    }
+    private void showFormAccept(HttpServletRequest request, HttpServletResponse response){
 
     }
 }
