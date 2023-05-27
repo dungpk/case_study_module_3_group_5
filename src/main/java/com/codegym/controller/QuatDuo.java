@@ -82,7 +82,7 @@ public class QuatDuo extends HttpServlet{
                     request.setAttribute("id",id);
                     goHomePage(request, response);
                     break;
-                case "displayPlayer":
+                case "display_player":
                     displayPlayer(request, response);
                     break;
                     default:
@@ -183,7 +183,9 @@ public class QuatDuo extends HttpServlet{
         List<Game> gameList = gameDAO.getAllGame();
         request.setAttribute("gameList", gameList);
         request.setAttribute("player",playerDAO.searchPlayerById(playerId));
-        request.setAttribute("listGameOfPlayer",playerDAO.searchPlayerById(playerId));
+
+        List<Game> games = playerDAO.searchGameByIdPlayer(playerId);
+        request.setAttribute("listGameOfPlayer",games);
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SelectPlayer.jsp");
         dispatcher.forward(request, response);
     }

@@ -12,6 +12,4 @@ public interface IAccountDao {
     void createAccount(String user_name,String password,String role);
 
     int getIdByUserName(String userName);
-
-    List<Game> searchGameByIdPlayer(int id);
 }
