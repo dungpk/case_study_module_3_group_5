@@ -206,55 +206,22 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href=""><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
     </div>
     <div class="header2 col-6">
-        <a href="#"><h2>Trang chủ</h2></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2>Trang chủ</h2></a>
     </div>
 </div>
 <div class="sidebar col-2">
     <h3>Danh mục game</h3>
     <div class="sidebar_items col-12">
-        <div class="imgside">
-            <img src="../image/game/lienminhhuyenthoai.jpg" alt="" width="60px">
-            <a href="#">Liên minh huyền thoại</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/valorant.jpg" alt="" width="60px">
-            <a href="#">Valorant</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/cs.png" alt="" width="60px">
-            <a href="#">CSGO</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/fifa.jpg" alt="">
-            <a href="#">FO4</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/pubg.jpg" alt="" width="60px">
-            <a href="#">PUBG</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/dota_2.jpg" alt="">
-            <a href="#">Dota</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/gta.jpg" alt="">
-            <a href="#">GTA V</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/cod.jpg" alt="">
-            <a href="#">Call of Duty</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/tocchien.jpg" alt="">
-            <a href="#">Liên minh tốc chiến</a>
-        </div>
-        <div class="imgside">
-            <img src="../image/game/free_fire.jpg" alt="">
-            <a href="#">Free fire</a>
-        </div>
+        <c:forEach items="${requestScope['gameList']}" var="game">
+            <div class="imgside">
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}" >${game.getName()}</a>
+            </div>
+        </c:forEach>
+
     </div>
 </div>
 <div class="content col-10">
@@ -264,10 +231,10 @@
         <c:forEach items="${requestScope['playerList']}" var="player">
             <div class="detail_player col-3 vip">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                    <a href="/quat?action=&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <a href="/quat?action=&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
                 </div>
             </div>
