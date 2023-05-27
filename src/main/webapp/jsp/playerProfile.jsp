@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +70,7 @@
               <p>Tên: ${request.getUserName()}</p>
               <p>Giờ thuê: ${request.getHours()}</p>
               <p>Tin nhắn: ${request.getDescription()}</p>
-              <span><button>Đồng ý</button> <button>Huỷ</button></span>
+              <span><a href="/quat?action=accept_request&account_id=${requestScope['id']}&request_id=${request.getId()}"><button>Đồng ý</button></a><a href="/quat?action=refuse_request&account_id=${requestScope['id']}&request_id=${request.getId()}"><button>Huỷ</button></a></span>
           </div>
       </div>
       </c:forEach>

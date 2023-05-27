@@ -19,7 +19,8 @@ public class UserDAO implements IUserDAO {
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
     private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
 
-
+    private static final String GET_USER_BY_ACCOUNT_ID = "SELECT * from user where foreign_account = ?";
+    private static final String DEPOSIT_COIN = "UPDATE quatduo.user SET coin = ? where foreign_account = ?";
     public UserDAO() {
     }
 
@@ -90,5 +91,32 @@ public class UserDAO implements IUserDAO {
             throw new RuntimeException(e);
         }
         return user;
+    }
+    public User getUserByAccountId(int account_id){
+        User user = new User();
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ACCOUNT_ID);
+            statement.setInt(1, account_id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int coin = rs.getInt("coin");
+                user = new User(id, name, coin);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+    public void deposit(int coin, int account_id){
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(DEPOSIT_COIN);
+            statement.setInt(1, coin);
+            statement.setInt(2, account_id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
