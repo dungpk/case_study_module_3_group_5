@@ -175,7 +175,6 @@
         .vip{
             border: 1px solid violet;
         }
-
         .detail_pic{
             height: 75%;
         }
