@@ -63,6 +63,7 @@ public class QuatDuo extends HttpServlet{
                 case "login":
                     showFormLogin(request, response);
                     break;
+
                 case "search_player_by_game":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     searchPlayerByGame(request, response);
@@ -176,7 +177,11 @@ public class QuatDuo extends HttpServlet{
             accountDao.createAccount(userName,password,"user");
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name,0,idForeign);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+            dispatcher.forward(request,response);
         }
+
+
     }
     private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.sendRedirect("jsp/welcome.jsp");
