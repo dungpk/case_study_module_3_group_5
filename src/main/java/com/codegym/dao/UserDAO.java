@@ -17,7 +17,7 @@ public class UserDAO implements IUserDAO {
 
 
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
-    private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
+     private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
 
 
     public UserDAO() {
