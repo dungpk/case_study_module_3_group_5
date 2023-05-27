@@ -1,5 +1,5 @@
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
-<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,15 +158,10 @@
               <th>Username</th>
               <th>Password</th>
               <th>Role</th>
+                <th>Coin</th>
               <th>Action</th>
             </tr>
-          <tr>
-            <td>1</td>
-            <td>ksdafj</td>
-            <td>dsafa</td>
-            <td>dsf</td>
-            <td><button>Delete</button><button>Edit</button></td>
-          </tr>
+
         </table>
     </div>
 </div>
