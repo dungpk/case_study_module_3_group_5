@@ -1,6 +1,7 @@
 package com.codegym.dao;
 
 import com.codegym.model.Account;
+import com.codegym.model.Player;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,7 +22,9 @@ public class AccountDao implements IAccountDao{
 
 
     private static final String CHECK_ACCOUNT_EXIST = "select id,user_name,password,role from account where user_name = ? and password = ?";
-            ;
+    private static final String CREATE_ACCOUNT = "insert into account (user_name, password, role) VALUES (?,?,?)";
+
+    private static final String GET_ID_BY_NAME = "select id from account where user_name = ?";
 
     public AccountDao(){
     }
@@ -62,6 +65,62 @@ public class AccountDao implements IAccountDao{
         }
 
         return account;
+    }
+
+    @Override
+    public boolean checkAccountExist(String account) {
+        String query = "{CALL search_account_by_user_name(?)}";
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(query)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setString(1,account);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()){
+                String user_name = rs.getString("user_name");
+                if(user_name == null){
+                    return false;
+                }else{
+                    return true;
+                }
+        }
+            // Step 4: Process the ResultSet object
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return false;
+    }
+
+    @Override
+    public void createAccount(String user_name, String password, String role) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_ACCOUNT)) {
+            preparedStatement.setString(1,user_name);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, role);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
+
+    @Override
+    public int getIdByUserName(String userName) {
+        int id;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ID_BY_NAME)) {
+            preparedStatement.setString(1,userName);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+                return id;
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return 0;
     }
 
     private void printSQLException(SQLException ex) {

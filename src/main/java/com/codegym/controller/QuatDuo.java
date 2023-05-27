@@ -45,6 +45,10 @@ public class QuatDuo extends HttpServlet{
                     break;
                 case "search_player":
                     searchPlayer(request, response);
+                    break;
+                case "createUser":
+                    createUser(request, response);
+                    break;
                 default:
                     break;
             }
@@ -68,9 +72,10 @@ public class QuatDuo extends HttpServlet{
                 case "search_player_by_game":
                     searchPlayerByGame(request, response);
                     break;
+                case "register":
+                    register(request, response);
+                    break;
                     default:
-
-
                     break;
             }
         } catch (SQLException ex) {
@@ -117,17 +122,38 @@ public class QuatDuo extends HttpServlet{
         PlayerDAO playerDao = new PlayerDAO();
         String name = request.getParameter("search");
         List<Player> playerList = playerDao.searchPlayer(name);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.jsp");
         request.setAttribute("playerList", playerList);
         dispatcher.forward(request, response);
     }
 
-    private void    searchPlayerByGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    private void searchPlayerByGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         PlayerDAO playerDao = new PlayerDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         List<Player> playerList = playerDao.searchPlayerByGame(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SearchPages.jsp");
         request.setAttribute("playerList", playerList);
         dispatcher.forward(request, response);
+    }
+
+    private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Register.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String userName = request.getParameter("username");
+        String password = request.getParameter("password");
+        String confirm = request.getParameter("confirm");
+        String name = request.getParameter("name");
+        AccountDao accountDao = new AccountDao();
+        UserDAO userDao = new UserDAO();
+         boolean checkAccount= accountDao.checkAccountExist(userName);
+        if(checkAccount || !password.equals(confirm)){
+            response.sendRedirect("jsp/Register.jsp");
+        }else{
+            accountDao.createAccount(userName,password,"user");
+            int idForeign = accountDao.getIdByUserName(userName);
+            userDao.createUser(name,0,idForeign);
+        }
     }
 }

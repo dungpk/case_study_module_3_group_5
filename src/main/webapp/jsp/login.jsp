@@ -99,7 +99,6 @@
             <input type="password" name="password" required="">
             <label>Password</label>
         </div>
-        <input hidden="hidden" name="action" value="login">
         <input type="submit" value="Submit" id="submit">
     </form>
 </div>

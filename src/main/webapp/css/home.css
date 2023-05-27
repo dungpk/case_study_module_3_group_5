@@ -68,8 +68,12 @@ body{
     height: 40px;
     padding-top: 20px;
     font-family: Arial;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: 200;
+}
+a{
+    text-decoration: none;
+    color: #fff;
 }
 .imgside:hover{
     display: block;
@@ -187,12 +191,13 @@ body{
     text-indent: 10px;
     font-family: Tahoma;
     color: white;
-    font-size: 17px;
+    font-size: 14px;
     height: 25%;
     display: block;
 }
 .detail p{
     margin-top: 0px;
+    color: #fff;
 }
 .row{
     justify-content: center;

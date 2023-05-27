@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,7 +188,7 @@
             text-indent: 10px;
             font-family: Tahoma;
             color: white;
-            font-size: 17px;
+            font-size: 14px;
             height: 25%;
             display: block;
         }
@@ -205,7 +207,7 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2>
+        <a href=""><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
     </div>
     <div class="header2 col-6">
         <a href="#"><h2>Trang chủ</h2></a>
@@ -260,33 +262,17 @@
     <div class="contentheader col-12"></div>
     <div class="main col-10">
         <h2 style="color: white">Kết quả:</h2>
-        <div class="detail_player col-3 vip">
-            <div class="detail_pic col-12">
-                <img src="images/pho1.jpg" alt="">
+        <c:forEach items="${requestScope['playerList']}" var="player">
+            <div class="detail_player col-3 vip">
+                <div class="detail_pic col-12">
+                    <a href="/quat?action=&id=${player.getPlayer_id()}"><img src="${player.getImg()}" alt=""></a>
+                </div>
+                <div class="detail">
+                    <a href="/quat?action=&id=${player.getPlayer_id()}"><p>Name: ${player.getName()}</p></a>
+                    <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
+                </div>
             </div>
-            <div class="detail">
-                <p>Name: </p>
-                <p>Giá thuê: </p>
-            </div>
-        </div>
-        <div class="detail_player col-3 vip">
-            <div class="detail_pic col-12">
-                <img src="images/pho1.jpg" alt="">
-            </div>
-            <div class="detail">
-                <p>Name: </p>
-                <p>Giá thuê: </p>
-            </div>
-        </div>
-        <div class="detail_player col-3 vip">
-            <div class="detail_pic col-12">
-                <img src="images/pho1.jpg" alt="">
-            </div>
-            <div class="detail">
-                <p>Name: </p>
-                <p>Giá thuê: <span class="price">10000/trận</span></p>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 </body>

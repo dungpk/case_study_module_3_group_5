@@ -16,6 +16,8 @@ public class UserDAO implements IUserDAO {
     private final String jdbcPassword = "Haido123";
 
 
+    private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
+
     public UserDAO() {
     }
 
@@ -52,6 +54,17 @@ public class UserDAO implements IUserDAO {
     }
 
 
-
+    @Override
+    public void createUser(String name, int coin, int foreign_account) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER)) {
+            preparedStatement.setString(1,name);
+            preparedStatement.setInt(2, coin);
+            preparedStatement.setInt(3, foreign_account);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
 }
-
