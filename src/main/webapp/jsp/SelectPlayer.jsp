@@ -26,7 +26,7 @@
     <div class="content col-10">
         <div class="main-content col-10">
             <div class="avatar col-5">
-                <img src="../image/player/default.jpg" alt="">
+                <img src="${requestScope['player'].getImg()}" alt="">
             </div>
             <div class="dish col-7">
                 <div id="head-dish" class="col-10">
