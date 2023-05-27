@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,7 +163,7 @@
 <body>
 <div class="header col-12">
   <div class="header1 col-6">
-    <a href="#">QUAT<span>DUO</span></a>
+    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
   </div>
   <div class="header2 col-6">
     <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
@@ -183,7 +184,6 @@
       <input type="submit" value="Đồng ý" id="submit">
     </fieldset>
   </form>
-
 </div>
 </body>
 </html>

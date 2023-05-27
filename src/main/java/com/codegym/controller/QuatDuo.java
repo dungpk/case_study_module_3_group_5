@@ -88,9 +88,11 @@ public class QuatDuo extends HttpServlet{
                     break;
                 case "accept_request":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    showFormAccept(request, response);
                     break;
                 case "accept_refuse":
                     request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
+                    showFormRefuse(request, response);
                     break;
                     default:
                     break;
@@ -240,7 +242,18 @@ public class QuatDuo extends HttpServlet{
         }
 
     }
-    private void showFormAccept(HttpServletRequest request, HttpServletResponse response){
-
+    private void showFormAccept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/acceptRequest.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void showFormRefuse(HttpServletRequest request, HttpServletResponse response){
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/refuseRequest.jsp");
+        try{
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
