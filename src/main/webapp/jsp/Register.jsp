@@ -126,11 +126,23 @@
   <form action="/quat" method="post">
     <div class="user-box">
       <input type="text" name="name" required="">
-      <label>Enter your name</label>
+      <label>Họ và tên</label>
     </div>
     <div class="user-box">
       <input type="text" name="age" required="">
-      <label>Enter your age</label>
+      <label>Tuổi</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="phone" required="">
+      <label>Số điện thoại</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="email" required="">
+      <label>Email</label>
+    </div>
+    <div class="user-box">
+      <input type="text" name="address" required="">
+      <label>Địa chỉ</label>
     </div>
     <div class="user-box">
       <input type="text" name="username" required="">
