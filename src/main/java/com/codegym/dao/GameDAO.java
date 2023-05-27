@@ -16,6 +16,7 @@ public class GameDAO implements IGameDAO {
     private static final String SELECT_ALL_GAME = "SELECT * FROM Game";
     private static final String UPDATE_GAME_SQL = "UPDATE Game SET name = ?, image_source = ? WHERE id = ?";
     private static final String DETELE_GAME_SQL = "DETELE FROM Game WHERE id = ?";
+    private static final String CREATE_GAME_PLAYER_RE = "insert into game_player_re (game_id,player_id,price) value (?,?,?)";
 
     public GameDAO(){
     }
@@ -92,6 +93,19 @@ public class GameDAO implements IGameDAO {
         }
     }
 
+    public void createGamePlayer(int game_id, int player_id, int price){
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(CREATE_GAME_PLAYER_RE);
+            statement.setInt(1,game_id);
+            statement.setInt(2,player_id);
+            statement.setInt(3,price);
+            System.out.println(statement);
+            statement.executeUpdate();
+        } catch (SQLException e){
+            printSQLException(e);
+        }
+    }
+
     @Override
     public boolean updateGame(Game game) throws SQLException{
         boolean rowUpdated;
@@ -133,4 +147,5 @@ public class GameDAO implements IGameDAO {
             }
         }
     }
+
 }

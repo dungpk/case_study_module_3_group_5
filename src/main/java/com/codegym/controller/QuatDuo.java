@@ -5,6 +5,7 @@ import com.codegym.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -46,6 +47,10 @@ public class QuatDuo extends HttpServlet{
                     break;
                 case "createPlayer":
                     createPlayer(request,response);
+                    break;
+                case "createGame":
+                    createGame(request,response);
+                    break;
                 default:
                     break;
             }
@@ -112,6 +117,7 @@ public class QuatDuo extends HttpServlet{
         AccountDao accountDao = new AccountDao();
         PlayerDAO playerDAO = new PlayerDAO();
         ProfileDao profileDao = new ProfileDao();
+        GameDAO gameDAO = new GameDAO();
 
         boolean checkAccount = accountDao.checkAccountExist(userName);
 
@@ -120,10 +126,16 @@ public class QuatDuo extends HttpServlet{
         } else {
             accountDao.createAccount(userName,password,"player");
             int idForeign = accountDao.getIdByUserName(userName);
-            playerDAO.createPlayer(name,0,0,0,idForeign);
+            playerDAO.createPlayer(name,0,0,0,idForeign,"",0);
+            int idPlayer = playerDAO.getIdByIdForegin(idForeign);
             profileDao.createProfile(age,address,email,idForeign);
-            request.setAttribute("idForeign",idForeign);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Game.html");
+//
+            request.setAttribute("idPlayer",idPlayer);
+
+            //query db de get list game
+            List<Game> gameList = gameDAO.getAllGame();
+            request.setAttribute("gameList", gameList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Game.jsp?idPlayer="+idPlayer);
             dispatcher.forward(request,response);
         }
 
@@ -204,8 +216,14 @@ public class QuatDuo extends HttpServlet{
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirm");
         String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+
         AccountDao accountDao = new AccountDao();
         UserDAO userDao = new UserDAO();
+        ProfileDao profileDao = new ProfileDao();
+
          boolean checkAccount= accountDao.checkAccountExist(userName);
         if(checkAccount || !password.equals(confirm)){
             response.sendRedirect("jsp/Register.jsp");
@@ -213,6 +231,7 @@ public class QuatDuo extends HttpServlet{
             accountDao.createAccount(userName,password,"user");
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name,0,idForeign);
+            profileDao.createProfile(age,address,email,idForeign);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
             dispatcher.forward(request,response);
         }
@@ -269,5 +288,31 @@ public class QuatDuo extends HttpServlet{
             dispatcher.forward(request, response);
         }
 
+    }
+    private void createGame(HttpServletRequest request,HttpServletResponse response)
+            throws ServletException, SQLException, IOException{
+        int idInt = Integer.parseInt(request.getParameter("idPlayer"));
+
+        GameDAO gameDAO = new GameDAO();
+        List<Game> gameList = gameDAO.getAllGame();
+        List<String> options = new ArrayList<>();
+        List<Integer> intOptions = new ArrayList<>();
+        for (Game g : gameList) {
+            String game = request.getParameter("" + g.getId());
+            if(game != null){
+            options.add(game);
+        }
+
+        }
+        for (String option : options) {
+            int intOption = Integer.parseInt(option);
+            intOptions.add(intOption);
+        }
+        for (int option : intOptions) {
+            // Thực hiện các xử lý tương ứng với giá trị của option ở đây
+            gameDAO.createGamePlayer(option,idInt,0);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+        dispatcher.forward(request,response);
     }
 }

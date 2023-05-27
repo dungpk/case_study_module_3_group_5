@@ -17,9 +17,10 @@ public class PlayerDAO implements IPlayerDAO{
     private static final String SELECT_ALL_PLAYER = "SELECT * from player";
     private static final String GET_PLAYER_BY_ID = "SELECT * FROM player WHERE id_player = ?";
 
-    private static final String CREATE_PLAYER = "insert into player (name, coin, rate, price, foreign_account) VALUES (?,?,?,?,?)";
+    private static final String CREATE_PLAYER = "insert into player (name, coin, rate, matchs, foreign_account, source_img, price) VALUES (?,?,?,?,?,?,?)";
 
     private static final String GET_LIST_COIN = "SELECT coin from player";
+    private static final String GET_ID_BY_IDFOREIGN = "SELECT id_player FROM player WHERE foreign_account =  ?";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -93,15 +94,33 @@ public class PlayerDAO implements IPlayerDAO{
         }
         return list;
     }
+    public int getIdByIdForegin(int idForeign) {
+        int id;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ID_BY_IDFOREIGN)) {
+            preparedStatement.setInt(1,idForeign);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id_player");
+                return id;
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return 0;
+    }
 
-    public void createPlayer(String name, int coin, int rate, int price, int foreign_account){
+
+    public void createPlayer(String name, int coin, int rate,int matchs, int foreign_account,String source_img,int price){
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_PLAYER);
             preparedStatement.setString(1, name);
             preparedStatement.setInt(2,coin);
             preparedStatement.setInt(3,rate);
-            preparedStatement.setInt(4,price);
+            preparedStatement.setInt(4,matchs);
             preparedStatement.setInt(5,foreign_account);
+            preparedStatement.setString(6,source_img);
+            preparedStatement.setInt(7,price);
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e){
