@@ -107,11 +107,54 @@ button:hover{
 .headmain{
     height: 64px;
 }
+.imgside{
+    margin-top: 10px;
+    height: 50px;
+    display: block;
+    padding-top: 14px;
+}
+.imgside a{
+    margin-left: 15px;
+    position: relative;
+    bottom: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+.imgside:hover{
+    display: block;
+    background: #243b55;
+    width: 100%;
+}
+.imgside:hover a{
+    color: #03e9f4;
+}
+.imgside img{
+    border-radius: 20%;
+    width: 60px;
+    margin-top: 10px;
+}
+.sidebar_items{
+    cursor: pointer;
+    align-items: center;
+    display: block;
+    height: 40px;
+    padding-top: 20px;
+    font-family: Arial;
+    font-size: 13px;
+    font-weight: 200;
+}
 .sidebar{
     height: 100%;
     float: left;
     background: #1f1f22;
     overflow-y: auto;
+    border-radius: 10px;
+}
+.sidebar h3{
+    text-indent: 30px;
+    color: white;
+    font-family: Tahoma;
 }
 ::-webkit-scrollbar{
     height: 5px;
