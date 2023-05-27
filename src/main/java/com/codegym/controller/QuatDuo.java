@@ -74,6 +74,17 @@ public class QuatDuo extends HttpServlet{
                 case "register":
                     register(request, response);
                     break;
+                case "logout":
+                    logout(request, response);
+                    break;
+                case "goHomePage":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    request.setAttribute("id",id);
+                    goHomePage(request, response);
+                    break;
+                case "displayPlayer":
+                    displayPlayer(request, response);
+                    break;
                     default:
                     break;
             }
@@ -101,20 +112,26 @@ public class QuatDuo extends HttpServlet{
         if(account==null){
             response.sendRedirect("jsp/login.jsp");
         }else{
-            PlayerDAO playerDAO = new PlayerDAO();
-            GameDAO gameDAO = new GameDAO();
-            List<Game> gameList = gameDAO.getAllGame();
-            List<Player> vipList = playerDAO.vipPlayer();
-            List<Player> hotList = playerDAO.hotPlayer();
-            List<Player> playerList = playerDAO.listPlayer();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Home.jsp");
-            request.setAttribute("hotList", hotList);
-            request.setAttribute("playerList", playerList);
-            request.setAttribute("vipList", vipList);
-            request.setAttribute("gameList", gameList);
-            request.setAttribute("account", account);
-            dispatcher.forward(request, response);
+            request.setAttribute("id",account.getId());
+            goHomePage(request,response);
         }
+    }
+
+    private void goHomePage(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException{
+        PlayerDAO playerDAO = new PlayerDAO();
+        GameDAO gameDAO = new GameDAO();
+        List<Game> gameList = gameDAO.getAllGame();
+        List<Player> vipList = playerDAO.vipPlayer();
+        List<Player> hotList = playerDAO.hotPlayer();
+        List<Player> playerList = playerDAO.listPlayer();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Home.jsp");
+        System.out.println(request.getAttribute("id"));
+        request.setAttribute("hotList", hotList);
+        request.setAttribute("playerList", playerList);
+        request.setAttribute("vipList", vipList);
+        request.setAttribute("gameList", gameList);
+        dispatcher.forward(request, response);
     }
 
     private void searchPlayer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -154,5 +171,20 @@ public class QuatDuo extends HttpServlet{
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name,0,idForeign);
         }
+    }
+    private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        response.sendRedirect("jsp/welcome.jsp");
+    }
+
+    private void displayPlayer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        int playerId = Integer.parseInt(request.getParameter("id"));
+        GameDAO gameDAO = new GameDAO();
+        PlayerDAO playerDAO = new PlayerDAO();
+        List<Game> gameList = gameDAO.getAllGame();
+        request.setAttribute("gameList", gameList);
+        request.setAttribute("player",playerDAO.searchPlayerById(playerId));
+        request.setAttribute("listGameOfPlayer",playerDAO.searchPlayerById(playerId));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SelectPlayer.jsp");
+        dispatcher.forward(request, response);
     }
 }

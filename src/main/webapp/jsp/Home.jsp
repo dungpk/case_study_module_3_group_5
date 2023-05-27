@@ -12,7 +12,7 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2>
+        <a href="/quat?action=goHomePage&id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
         <form action="/quat" method = "post">
             <input hidden="hidden" name="action" value = "search_player">
             <input type="text" name="search" id="search" placeholder="  Enter something">
@@ -22,7 +22,7 @@
     </div>
     <div class="header2 col-6">
         <a href=""><button>Trang cá nhân</button></a>
-        <a href=""><button>Đăng xuất</button></a>
+        <a href="/quat?action=logout"><button>Đăng xuất</button></a>
         <a href=""><button>Nạp tiền</button></a>
     </div>
 </div>

@@ -14,6 +14,7 @@ public class PlayerDAO implements IPlayerDAO{
     private static final String SELECT_VIP_PLAYER = "SELECT * from player where rate = 5";
     private static final String SELECT_HOT_PLAYER = "SELECT * from player where rate = 4";
     private static final String SELECT_ALL_PLAYER = "SELECT * from player";
+    private static final String GET_PLAYER_BY_ID = "SELECT * FROM player WHERE id_player = ?";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -100,6 +101,31 @@ public class PlayerDAO implements IPlayerDAO{
     @Override
     public boolean updateProfile(Player player) throws SQLException {
         return false;
+    }
+
+    @Override
+    public Player searchPlayerById(int id) {
+        Player player = new Player();
+        try(Connection connection = getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_BY_ID);
+            preparedStatement.setInt(1,id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int account_id = rs.getInt("foreign_account");
+                int player_id = rs.getInt("id_player");
+                String name = rs.getString("name");
+                String source_img = rs.getString("source_img");
+                int coin = rs.getInt("coin");
+                int rate = rs.getInt("rate");
+                int price = rs.getInt("price");
+                player = new Player(player_id, account_id, name, rate, price, coin, source_img);
+                return  player;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return player;
     }
 
     @Override
