@@ -17,7 +17,9 @@ public class UserDAO implements IUserDAO {
 
 
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
-    private static final String GET_LIST_COIN = "SELECT coin from user";
+    private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
+
+
     public UserDAO() {
     }
 
@@ -67,17 +69,26 @@ public class UserDAO implements IUserDAO {
             printSQLException(e);
         }
     }
-    public List<Integer> listCoin(){
-        List<Integer> list = new ArrayList<>();
-        try(Connection connection = getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(GET_LIST_COIN);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                list.add(rs.getInt("coin"));
+
+
+    @Override
+    public User getUserByUserID(int userId) {
+
+        User user = new User();
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID_USER);
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int userID = rs.getInt("id");
+                String name = rs.getString("name");
+                user = new User(userID, name);
+                return user;
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return list;
+        return user;
     }
 }

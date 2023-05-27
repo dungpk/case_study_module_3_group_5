@@ -38,7 +38,7 @@ public class AccountDao implements IAccountDao{
             "INNER JOIN account ON user.foreign_account = account.id\n" +
             "WHERE account.id = ?";
 
-    private static final String GET_PLAYER_ACCOUNT_LIST = "SELECT * FROM account where role = ?";
+    private static final String GET_PLAYER_ACCOUNT_LIST = "SELECT * FROM account";
 
     public AccountDao(){
     }
@@ -184,30 +184,10 @@ public class AccountDao implements IAccountDao{
         }
         return null;
     }
-    public List<Account> listAccountPlayer(){
+    public List<Account> listAccount(){
         List<Account> list = new ArrayList<>();
         try(Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
-            preparedStatement.setString(1, "player");
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
-                int id = rs.getInt("id");
-                String username = rs.getString("user_name");
-                String password = rs.getString("password");
-                String role = rs.getString("role");
-                Account account = new Account(id, username, password, role);
-                list.add(account);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return list;
-    }
-    public List<Account> listAccountUser(){
-        List<Account> list = new ArrayList<>();
-        try(Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
-            preparedStatement.setString(1, "user");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 int id = rs.getInt("id");

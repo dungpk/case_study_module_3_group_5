@@ -74,11 +74,6 @@
           </div>
       </div>
       </c:forEach>
-      <div class="request"></div>
-      <div class="request"></div>
-      <div class="request"></div>
-      <div class="request"></div>
-      <div class="request"></div>
   </div>
 <div class="rate col-12">
     <div class="rateinfo col-5">
