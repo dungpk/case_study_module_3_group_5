@@ -44,6 +44,7 @@ public class QuatDuo extends HttpServlet{
                     confirmLogin(request, response);
                     break;
                 case "search_player":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     searchPlayer(request, response);
                     break;
                 case "createUser":
@@ -69,6 +70,7 @@ public class QuatDuo extends HttpServlet{
                     showFormLogin(request, response);
                     break;
                 case "search_player_by_game":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     searchPlayerByGame(request, response);
                     break;
                 case "register":
@@ -78,11 +80,11 @@ public class QuatDuo extends HttpServlet{
                     logout(request, response);
                     break;
                 case "goHomePage":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    request.setAttribute("id",id);
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     goHomePage(request, response);
                     break;
                 case "display_player":
+                    request.setAttribute("id",Integer.parseInt(request.getParameter("account_id")));
                     displayPlayer(request, response);
                     break;
                     default:
@@ -185,7 +187,6 @@ public class QuatDuo extends HttpServlet{
         request.setAttribute("player",playerDAO.searchPlayerById(playerId));
         List<Game> games = playerDAO.searchGameByIdPlayer(playerId);
         request.setAttribute("listGameOfPlayer",games);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SelectPlayer.jsp");
         dispatcher.forward(request, response);
     }
