@@ -15,7 +15,7 @@
     <div class="header2 col-6">
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
         <button>Nạp tiền</button>
-        <button>Đăng xuất</button>
+        <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
 <div class="main col-12">

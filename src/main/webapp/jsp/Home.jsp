@@ -7,7 +7,6 @@
     <title>Title</title>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/search.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/home.css">
-
 </head>
 <body>
 <div class="header col-12">
@@ -22,7 +21,7 @@
         </form>
     </div>
     <div class="header2 col-6">
-        <a href=""><button>Trang cá nhân</button></a>
+        <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
         <a href=""><button>Nạp tiền</button></a>
     </div>
