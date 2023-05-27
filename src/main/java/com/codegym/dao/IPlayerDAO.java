@@ -1,5 +1,6 @@
 package com.codegym.dao;
 
+import com.codegym.model.Game;
 import com.codegym.model.Player;
 import com.codegym.model.User;
 
@@ -14,4 +15,5 @@ public interface IPlayerDAO {
     public List<Player> searchPlayer(String name_search);
     public boolean updateProfile(Player player) throws SQLException;
     public Player searchPlayerById(int id);
+    List<Game> searchGameByIdPlayer(int id);
 }

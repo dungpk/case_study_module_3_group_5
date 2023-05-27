@@ -1,5 +1,6 @@
 package com.codegym.dao;
 
+import com.codegym.model.Game;
 import com.codegym.model.Player;
 
 import java.sql.*;
@@ -156,6 +157,29 @@ public class PlayerDAO implements IPlayerDAO{
             printSQLException(e);
         }
         return list;
+    }
+    @Override
+    public List<Game> searchGameByIdPlayer(int id) {
+        List<Game> games = new ArrayList<>();
+        String  query = "{CALL find_player_games(?)}";
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+            preparedStatement.setInt(1, id);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int idGame = rs.getInt("id");
+                String name = rs.getString("name");
+                String source = rs.getString("image_source");
+                games.add(new Game(idGame, name, source));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return games;
     }
 
 
