@@ -214,12 +214,18 @@ public class QuatDuo extends HttpServlet{
 
         }else{
             Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
+            request.setAttribute("player",player);
+
             List<Game> games = playerDAO.searchGameByIdPlayer(player.getPlayer_id());
             request.setAttribute("listGameOfPlayer",games);
-            request.setAttribute("player",player);
+
+            RequestDAO requestDAO = new RequestDAO();
+            List<Request> requests= requestDAO.getRequestByIdPlayer(player.getPlayer_id());
+            request.setAttribute("requests",requests);
+
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
             dispatcher.forward(request, response);
-
         }
 
     }
