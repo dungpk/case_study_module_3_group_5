@@ -8,6 +8,8 @@ public class ProfileDao implements IProfileDao {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "123456";
+
+
     public ProfileDao(){
     }
     protected Connection getConnection() {

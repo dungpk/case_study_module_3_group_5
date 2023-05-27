@@ -24,7 +24,12 @@ public class AccountDao implements IAccountDao{
     private static final String CREATE_ACCOUNT = "insert into account (user_name, password, role) VALUES (?,?,?)";
 
     private static final String GET_ID_BY_NAME = "select id from account where user_name = ?";
+    private static final String GET_ROLE_BY_ACCOUNT_ID = "select role from account where id = ?";
 
+    private static final String GET_PLAYER_BY_ACCOUNT_ID = "SELECT player.*\n" +
+            "FROM player\n" +
+            "INNER JOIN account ON player.foreign_account = account.id\n" +
+            "WHERE account.id = ?";
     public AccountDao(){
     }
 
@@ -120,6 +125,51 @@ public class AccountDao implements IAccountDao{
             printSQLException(e);
         }
         return 0;
+    }
+
+    @Override
+    public String getRoleByAccountId(int account_id) {
+        String role;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ROLE_BY_ACCOUNT_ID)) {
+            preparedStatement.setInt(1,account_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                role = rs.getString("role");
+                return role;
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public Player getPlayerByAccountId(int accountID) {
+        Player player;
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(GET_PLAYER_BY_ACCOUNT_ID)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,accountID);
+            ResultSet rs = callableStatement.executeQuery();
+            while (rs.next()){
+                int account_id = rs.getInt("foreign_account");
+                int player_id = rs.getInt("id_player");
+                String name = rs.getString("name");
+                String source_img = rs.getString("source_img");
+                int coin = rs.getInt("coin");
+                int rate = rs.getInt("rate");
+                int price = rs.getInt("price");
+                player = new Player(player_id, account_id, name, rate, price, coin, source_img);
+                return player;
+            }
+            // Step 4: Process the ResultSet object
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return null;
     }
 
     private void printSQLException(SQLException ex) {

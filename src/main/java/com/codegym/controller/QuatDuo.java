@@ -197,12 +197,29 @@ public class QuatDuo extends HttpServlet{
 
     private void displayProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
+        PlayerDAO playerDAO = new PlayerDAO();
         ProfileDao profileDao = new ProfileDao();
         Profile profile = profileDao.getProfileByAccountId(Integer.parseInt(request.getParameter("account_id")));
         request.setAttribute("profile",profile);
 
-        PlayerDAO playerDAO = new PlayerDAO();
-        List<Game> games = playerDAO.searchGameByIdPlayer(Integer.parseInt(request.getParameter("account_id")));
-        request.setAttribute("listGameOfPlayer",games);
+        AccountDao accountDao = new AccountDao();
+        String role = accountDao.getRoleByAccountId(Integer.parseInt(request.getParameter("account_id")));
+
+        if(role.equals("user")){
+
+
+        }else{
+
+            Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
+            List<Game> games = playerDAO.searchGameByIdPlayer(player.getPlayer_id());
+            request.setAttribute("listGameOfPlayer",games);
+            request.setAttribute("player",player);
+
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
+            dispatcher.forward(request, response);
+
+        }
+
     }
 }
