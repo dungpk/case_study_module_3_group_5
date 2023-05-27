@@ -21,7 +21,12 @@
 <div class="main col-12">
     <div class="headmain col-12"></div>
     <div class="sidebar col-2">
-
+        <c:forEach items="${requestScope['gameList']}" var="game">
+            <div class="imgside">
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}" >${game.getName()}</a>
+            </div>
+        </c:forEach>
     </div>
     <div class="content col-10">
         <div class="main-content col-10">
@@ -33,15 +38,14 @@
                     <p>Xin chao minh la chao day</p>
                 </div>
                 <div id="game-dish" class="col-10">
-                    <img src="../image/game/cod.jpg" alt="">
-                    <img src="../image/game/free_fire.jpg" alt="">
-                    <img src="../image/game/cs.png" alt="">
-                    <img src="../image/game/pubg.jpg" alt="">
+                    <c:forEach items="${requestScope['ListGameOfPlayer']}" var="game">
+                        <img src="${game.getImageSource()}" alt="">
+                    </c:forEach>
                 </div>
                 <div id="bottom-dish" class="col-12">
-                    <p>ID: </p>
-                    <p>Tên:</p>
-                    <p>Giá: </p>
+                    <p>ID: ${requestScope['player'].getPlayer_id()}</p>
+                    <p>Tên: ${requestScope['player'].getName()}</p>
+                    <p>Giá: ${requestScope['player'].getPrice()}</p>
                     <button>Thuê</button>
                     <button>Nhắn tin</button>
                 </div>

@@ -183,7 +183,7 @@ public class QuatDuo extends HttpServlet{
         List<Game> gameList = gameDAO.getAllGame();
         request.setAttribute("gameList", gameList);
         request.setAttribute("player",playerDAO.searchPlayerById(playerId));
-        request.setAttribute("listGameOfPlayer",playerDAO.searchPlayerById(playerId));
+        request.setAttribute("listGameOfPlayer",playerDAO.searchPlayerByGame(playerId));
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/SelectPlayer.jsp");
         dispatcher.forward(request, response);
     }
