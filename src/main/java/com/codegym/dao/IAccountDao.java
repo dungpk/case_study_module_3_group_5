@@ -17,7 +17,7 @@ public interface IAccountDao {
 
     Player getPlayerByAccountId(int accountID);
     User selectUserById(int accountID);
-    public User getUserUserByAccountId(int accountId);
+    public User getUserByAccountId(int accountId);
 
     void updateUserNameByAccountId(int accountId,String name);
     void updateProfileUserByAccountId(int accountId,int age,String address,String email);
