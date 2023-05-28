@@ -107,46 +107,49 @@
       background: #fff;
     }
     .main{
-        height: 1000px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      height: 1000px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .main form{
+      margin-top: -200px;
     }
     form{
-        width: 800px;
-        height: 500px;
-        font-family: Tahoma;
-        font-size: 17px;
-        color: #03e9f4;
-        padding-left: 20px;
+      width: 800px;
+      height: 500px;
+      font-family: Tahoma;
+      font-size: 17px;
+      color: #03e9f4;
+      padding-left: 20px;
     }
     form input{
-        margin-top: 30px;
-        height: 30px;
-        border-radius: 5px;
-        border: none;
-        width: 300px;
+      margin-top: 20px;
+      height: 30px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
+      font-family: Tahoma;
     }
     fieldset{
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
     }
     fieldset img{
-        border-radius: 50%;
-        border: 3px solid #03e9f4;
-        width: 200px;
+      border-radius: 50%;
+      border: 3px solid #03e9f4;
     }
     #submit{
-        width: 100px;
-        cursor: pointer;
-        color: white;
-        background-color: #03e9f4;
-        font-family: Tahoma;
-        font-size: 17px;
+      width: 100px;
+      cursor: pointer;
+      color: white;
+      background-color: #03e9f4;
+      font-family: Tahoma;
+      font-size: 17px;
     }
     #submit:hover{
-        color: #03e9f4;
-        background-color: white;
+      color: #03e9f4;
+      background-color: white;
     }
   </style>
 </head>
@@ -161,25 +164,25 @@
 </div>
 <div class="main">
     <form action="/admin" method="post">
-       <fieldset>
-           <legend>
-               <c:choose>
-                    <c:when test="${requestScope['role'] == 'player'}">
-                        <img src="${requestScope['account'].getImg()}" alt="">
-                    </c:when>
-                   <c:otherwise>
-                       <img src="${requestScope['account'].getImage_source()}" alt="">
-                   </c:otherwise>
-               </c:choose>
-           </legend>
-            <label for="username">Username:</label>
-           <input type="hidden" name="action" value="edit">
-           <input type="hidden" name="id" value="${requestScope['id']}">
-           <input type="text" placeholder="Enter" name="username" id="username"><br>
-           <label for="password">Password:</label>
-           <input type="text" placeholder="Enter" name="password" id="password" style="margin-left: 5px"><br>
-           <input type="submit" id="submit" value="Nắn con lợn này" id="submit">
-       </fieldset>     
+        <input type="hidden" name="action" value="create_player">
+      <fieldset>
+        <legend>
+            <h2>Tạo ra một dân chơi nào</h2>
+        </legend>
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name"><br>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username"><br>
+        <label for="password">Password:</label>
+        <input type="text" name="password" id="password"><br>
+        <label for="coin">Coin:</label>
+        <input type="text" name="coin" id="coin"><br>
+          <label for="rate">Rate:</label>
+          <input type="text" name="rate" id="rate"><br>
+          <label for="price">Price:</label>
+          <input type="text" name="price" id="price"><br>
+          <input type="submit" id="submit" value="Tạo con vợ">
+      </fieldset>
     </form>
 </div>
 </body>

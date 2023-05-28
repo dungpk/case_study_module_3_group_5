@@ -38,9 +38,18 @@ public class AccountDao implements IAccountDao{
             "INNER JOIN account ON user.foreign_account = account.id\n" +
             "WHERE account.id = ?";
 
-    private static final String GET_PLAYER_ACCOUNT_LIST = "SELECT * FROM account where role = ?";
+    private static final String UPDATE_USER_NAME_BY_ACCOUNT_ID = "UPDATE quatduo.user SET name = ? where foreign_account = ?";
+
+    private static final String UPDATE_PROFILE_BY_ACCOUNT_ID = "UPDATE profile\n" +
+            "SET age = ?, address = ?, email = ?\n" +
+            "WHERE account_id = ?";
+
+    private static final String GET_PLAYER_ACCOUNT_LIST = "SELECT * FROM account";
 
     public AccountDao(){
+    }
+
+    public AccountDao(String userName, String password, String role) {
     }
 
     protected Connection getConnection() {
@@ -181,30 +190,72 @@ public class AccountDao implements IAccountDao{
         }
         return null;
     }
-    public List<Account> listAccountPlayer(){
-        List<Account> list = new ArrayList<>();
-        try(Connection connection = getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
-            preparedStatement.setString(1, "player");
-            ResultSet rs = preparedStatement.executeQuery();
+
+    @Override
+    public User getUserUserByAccountId(int accountId) {
+        User user;
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(GET_USER_BY_ACCOUNT_ID)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,accountId);
+            ResultSet rs = callableStatement.executeQuery();
             while (rs.next()){
-                int id = rs.getInt("id");
-                String username = rs.getString("user_name");
-                String password = rs.getString("password");
-                String role = rs.getString("role");
-                Account account = new Account(id, username, password, role);
-                list.add(account);
+                int userId = rs.getInt("id");
+                String userName = rs.getString("name");
+                int coin = rs.getInt("coin");
+                user = new User(userId,userName,coin);
+                return user;
             }
+            // Step 4: Process the ResultSet object
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            printSQLException(e);
         }
-        return list;
+        return null;
     }
-    public List<Account> listAccountUser(){
+
+    @Override
+    public void updateUserNameByAccountId(int accountId,String name){
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(UPDATE_USER_NAME_BY_ACCOUNT_ID)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setString(1,name);
+            callableStatement.setInt(2,accountId);
+
+            callableStatement.executeUpdate();
+
+            // Step 4: Process the ResultSet object
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
+
+    @Override
+    public void updateProfileUserByAccountId(int accountId,int age,String address,String email) {
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(UPDATE_PROFILE_BY_ACCOUNT_ID)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,age);
+            callableStatement.setString(2,address);
+            callableStatement.setString(3,email);
+            callableStatement.setInt(4,accountId);
+            callableStatement.executeUpdate();
+
+            // Step 4: Process the ResultSet object
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
+
+    public List<Account> listAccount(){
         List<Account> list = new ArrayList<>();
         try(Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_PLAYER_ACCOUNT_LIST);
-            preparedStatement.setString(1, "user");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 int id = rs.getInt("id");

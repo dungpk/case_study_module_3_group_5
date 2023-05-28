@@ -3,6 +3,24 @@ package com.codegym.model;
 public class Profile {
     int id;
     int age;
+
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Profile(int age, String name, String address, String email) {
+        this.age = age;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+    }
+
     String address;
     String email;
     String linkMess;

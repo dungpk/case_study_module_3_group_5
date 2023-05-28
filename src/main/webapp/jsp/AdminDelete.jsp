@@ -107,80 +107,83 @@
       background: #fff;
     }
     .main{
-        height: 1000px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      height: 1000px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     form{
-        width: 800px;
-        height: 500px;
-        font-family: Tahoma;
-        font-size: 17px;
-        color: #03e9f4;
-        padding-left: 20px;
+      width: 800px;
+      height: 500px;
+      font-family: Tahoma;
+      font-size: 17px;
+      color: #03e9f4;
+      padding-left: 20px;
     }
     form input{
-        margin-top: 30px;
-        height: 30px;
-        border-radius: 5px;
-        border: none;
-        width: 300px;
+      margin-top: 30px;
+      height: 30px;
+      border-radius: 5px;
+      border: none;
+      width: 300px;
     }
     fieldset{
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
     }
     fieldset img{
-        border-radius: 50%;
-        border: 3px solid #03e9f4;
-        width: 200px;
+      border-radius: 50%;
+      border: 3px solid #03e9f4;
     }
     #submit{
-        width: 100px;
-        cursor: pointer;
-        color: white;
-        background-color: #03e9f4;
-        font-family: Tahoma;
-        font-size: 17px;
+      width: 100px;
+      cursor: pointer;
+      color: white;
+      background-color: #03e9f4;
+      font-family: Tahoma;
+      font-size: 17px;
     }
     #submit:hover{
-        color: #03e9f4;
-        background-color: white;
+      color: #03e9f4;
+      background-color: white;
+    }
+    img{
+      width: 200px;
     }
   </style>
 </head>
 <body>
 <div class="header col-12">
   <div class="header1 col-6">
-    <a href="#">QUAT<span>DUO</span></a>
+    <a href="/admin">QUAT<span>DUO</span></a>
   </div>
   <div class="header2 col-6">
-      <a href="/admin"><button>Trang chủ</button></a>
+    <a href="/admin"> <button>Trang chủ</button></a>
   </div>
 </div>
 <div class="main">
-    <form action="/admin" method="post">
-       <fieldset>
-           <legend>
-               <c:choose>
-                    <c:when test="${requestScope['role'] == 'player'}">
-                        <img src="${requestScope['account'].getImg()}" alt="">
-                    </c:when>
-                   <c:otherwise>
-                       <img src="${requestScope['account'].getImage_source()}" alt="">
-                   </c:otherwise>
-               </c:choose>
-           </legend>
-            <label for="username">Username:</label>
-           <input type="hidden" name="action" value="edit">
-           <input type="hidden" name="id" value="${requestScope['id']}">
-           <input type="text" placeholder="Enter" name="username" id="username"><br>
-           <label for="password">Password:</label>
-           <input type="text" placeholder="Enter" name="password" id="password" style="margin-left: 5px"><br>
-           <input type="submit" id="submit" value="Nắn con lợn này" id="submit">
-       </fieldset>     
-    </form>
+  <form action="/admin" method="post">
+    <input type="hidden" name="action" value="delete">
+    <fieldset>
+      <legend>
+        <c:choose>
+          <c:when test="${requestScope['role'] == 'player'}">
+            <img src="${requestScope['player'].getImg()}" alt="">
+          </c:when>
+          <c:otherwise>
+            <img src="${requestScope['user'].getImage_source()}" alt="">
+          </c:otherwise>
+        </c:choose>
+      </legend>
+      <input type="hidden" name="id" value="${requestScope['account'].getId()}">
+      <p>ID: ${requestScope['account'].getId()}</p>
+      <p>Username: ${requestScope['account'].getUsername()}</p>
+      <p>Password: ${requestScope['account'].getPassword()}</p>
+      <p>Role: ${requestScope['account'].getRole()}</p>
+      <input type="submit" id="submit" value="Xoá con lợn này">
+    </fieldset>
+  </form>
 </div>
+
 </body>
 </html>

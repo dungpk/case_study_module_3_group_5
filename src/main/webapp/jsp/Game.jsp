@@ -131,47 +131,17 @@
     <form action="#" class="form col-4" method="post">
 
         <h2>Check the game you play:</h2>
-        <div class="group">
-            <input type="checkbox" name="game[]" value="CSGO" id="cs">
-            <label for="cs">CSGO</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" value="FO4" id="fifa">
-            <label for="fifa">FO4</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="lol" value="Liên minh huyền thoại">
-            <label for="lol">Liên minh huyền thoại</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="ff" value="Free fire">
-            <label for="ff">Free fire</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="pubg" value="PUBG">
-            <label for="pubg">PUBG</label>
-        </div>
-        <div class="group">
-             <input type="checkbox" name="game[]" id="cod" value="COD">
-            <label for="cod">COD</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="val" value="Valorant">
-            <label for="val">Valorant</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="gta" value="GTA V">
-            <label for="gta">GTA V</label>
-        </div>
-        <div class="group">
-            <input type="checkbox" name="game[]" id="tocchien" value="Liên minh tốc chiến">
-            <label for="tocchien">Liên minh tốc chiến</label>
-        </div>
-        <div class="group">
-             <input type="checkbox" name="game[]" id="dota" value="Dota 2">
-            <label for="dota">Dota 2</label>
-        </div>
+        <input type="hidden" name="action" value="createGame">
+        <input type="hidden" name="idPlayer" value="<%= request.getParameter("idPlayer") %>">
+        <c:forEach items="${requestScope['gameList']}" var="game">
+            <div class="group">
+                <input type="checkbox" name="${game.getId()}" value="${game.getId()}" id="${game.getId()}">
+                <label>${game.getName()}</label>
+            </div>
+        </c:forEach>
+
         <input type="submit" id="submit" value="Submit">
+
     </form>
 </div>
 

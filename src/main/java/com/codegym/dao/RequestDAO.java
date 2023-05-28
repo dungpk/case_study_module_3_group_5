@@ -7,12 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequestDAO implements IRequestDAO{
+public class RequestDAO implements IRequestDAO {
     private final String jdbcURL = "jdbc:mysql://localhost:3306/quatduo?useSSL=false";
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "123456";
 
-    public RequestDAO(){
+    static private String GET_ID_USER_BY_ID_REQUEST = "SELECT user_id FROM request WHERE id = ?";
+    static private String GET_ID_PLAYER_BY_ID_REQUEST = "SELECT player_id FROM request WHERE id = ?";
+
+    static private String DELETE_REQUEST_BY_ID_REQUEST = "DELETE FROM request WHERE id = ?";
+
+    public RequestDAO() {
     }
 
 
@@ -36,10 +41,10 @@ public class RequestDAO implements IRequestDAO{
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL,jdbcUsername,jdbcPassword);
-        }catch (SQLException e){
+            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
@@ -72,12 +77,59 @@ public class RequestDAO implements IRequestDAO{
                 UserDAO userDAO = new UserDAO();
                 User user = userDAO.getUserByUserID(userId);
 
-                requests.add( new Request(id, hours, description, userId,playerId,user.getName())) ;
+                requests.add(new Request(id, hours, description, userId, playerId, user.getName()));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
 
         return requests;
+    }
+
+    @Override
+    public int getIdUserByIdRequest(int idRequest) {
+        int userId = 0;
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ID_USER_BY_ID_REQUEST);
+            preparedStatement.setInt(1, idRequest);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                userId = rs.getInt("user_id");
+                return userId;
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return userId;
+    }
+
+    @Override
+    public void deleteRecordByRequestId(int requestId) {
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST_BY_ID_REQUEST);
+            preparedStatement.setInt(1, requestId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int getIdPlayerByIdRequest(int idRequest) {
+        int playerId = 0;
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ID_PLAYER_BY_ID_REQUEST);
+            preparedStatement.setInt(1, idRequest);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                playerId = rs.getInt("player_id");
+                return playerId;
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return playerId;
     }
 }

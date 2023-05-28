@@ -9,4 +9,6 @@ import java.util.List;
 public interface IUserDAO {
     void createUser(String name,int coin,int foreign_account);
      User getUserByUserID(int userId);
+    int checkCoinUserByName(int userId);
+    void updateCoinUser(int user, int coin);
 }

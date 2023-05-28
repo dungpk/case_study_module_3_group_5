@@ -1,9 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.dao.AccountDao;
-import com.codegym.dao.GameDAO;
-import com.codegym.dao.PlayerDAO;
-import com.codegym.dao.UserDAO;
+import com.codegym.dao.*;
 import com.codegym.model.Account;
 import com.codegym.model.Player;
 import com.codegym.model.User;
@@ -36,11 +33,13 @@ public class AdminServlet extends HttpServlet {
         }
             switch (action) {
                 case "create":
+                    showCreateForm(request, response);
                     break;
                 case "edit":
-                    editProfile(request, response);
+                    ShowEditProfile(request, response);
                     break;
-                case "delete":
+                case "delete_player":
+                    showDeleteForm(request, response);
                     break;
                 default:
                     ListAccount(request, response);
@@ -52,24 +51,39 @@ public class AdminServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
+        switch (action) {
+            case "create_player":
+                createPlayer(request, response);
+                break;
+            case "edit":
+                EditAccount(request, response);
+                break;
+            case "delete":
+                DeleteAccount(request, response);
+                break;
+        }
     }
-    private void editProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void ShowEditProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String role = request.getParameter("role");
+        request.setAttribute("id", id);
+        request.setAttribute("role", role);
         if(role.equals("player")){
             Player player = accountDao.getPlayerByAccountId(id);
-            request.setAttribute("player", player);
+            request.setAttribute("account", player);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
             dispatcher.forward(request, response);
         }else{
-            User user = new User();
+            User user = accountDao.selectUserById(id);
+            request.setAttribute("account", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
+            dispatcher.forward(request, response);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminEdit.jsp");
         dispatcher.forward(request, response);
     }
     private void ListAccount(HttpServletRequest request,HttpServletResponse response){
-        List<Account> accountList = accountDao.listAccountPlayer();
-
+        List<Account> accountList = accountDao.listAccount();
         try{
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
             request.setAttribute("list", accountList);
@@ -79,5 +93,76 @@ public class AdminServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String role = request.getParameter("role");
+        request.setAttribute("role", role);
+        AdminDAO adminDAO = new AdminDAO();
+        Account account = adminDAO.getAccountByID(id);
+        request.setAttribute("account", account);
+        if(role.equals("player")){
+            Player player = accountDao.getPlayerByAccountId(id);
+            request.setAttribute("player", player);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminDelete.jsp");
+            dispatcher.forward(request, response);
+        }else{
+            User user = accountDao.selectUserById(id);
+            request.setAttribute("user", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminDelete.jsp");
+            dispatcher.forward(request, response);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminDelete.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void createPlayer(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String name = request.getParameter("name");
+            int coin = Integer.parseInt(request.getParameter("coin"));
+            int rate = Integer.parseInt(request.getParameter("rate"));
+            int price = Integer.parseInt(request.getParameter("price"));
+            AdminDAO adminDAO = new AdminDAO();
+            int id = adminDAO.CreatePlayer(username, password, name, coin, rate, price);
+            List<Account> accountList = accountDao.listAccount();
+            request.setAttribute("list", accountList);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admit.jsp");
+            dispatcher.forward(request, response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response){
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminCreatePlayer.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void DeleteAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        AdminDAO adminDAO = new AdminDAO();
+        adminDAO.DeleteAccount(id);
+        List<Account> accountList = accountDao.listAccount();
+        request.setAttribute("list", accountList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void EditAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String Username = request.getParameter("username");
+        String password = request.getParameter("password");
+        AdminDAO adminDAO = new AdminDAO();
+        adminDAO.updateAccount(Username, password, id);
+        List<Account> accountList = accountDao.listAccount();
+        request.setAttribute("list", accountList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
+        dispatcher.forward(request, response);
     }
 }
