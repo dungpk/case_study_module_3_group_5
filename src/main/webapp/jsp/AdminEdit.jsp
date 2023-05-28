@@ -173,6 +173,8 @@
                </c:choose>
            </legend>
             <label for="username">Username:</label>
+           <input type="hidden" name="action" value="edit">
+           <input type="hidden" name="id" value="${requestScope['id']}">
            <input type="text" placeholder="Enter" name="username" id="username"><br>
            <label for="password">Password:</label>
            <input type="text" placeholder="Enter" name="password" id="password" style="margin-left: 5px"><br>

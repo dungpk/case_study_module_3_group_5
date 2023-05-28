@@ -12,6 +12,7 @@ public class AdminDAO {
 
     private static final String DELETE_ACCOUNT = "DELETE from account where id = ?";
     private static final String GET_ACCOUNT_BY_ID = "SELECT * from account where id = ?";
+    private static final String UPDATE_ACCOUNT_BY_ID = "UPDATE account SET user_name = ?, password = ? where id = ?";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -68,5 +69,16 @@ public class AdminDAO {
             throw new RuntimeException(e);
         }
         return account;
+    }
+    public void updateAccount(String user_name, String password, int id){
+        try(Connection connection =getConnection()){
+            PreparedStatement statement = connection.prepareStatement(UPDATE_ACCOUNT_BY_ID);
+            statement.setString(1, user_name);
+            statement.setString(2, password);
+            statement.setInt(3, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
