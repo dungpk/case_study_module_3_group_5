@@ -149,7 +149,7 @@ public class QuatDuo extends HttpServlet {
         } else {
             accountDao.createAccount(userName, password, "player");
             int idForeign = accountDao.getIdByUserName(userName);
-            playerDAO.createPlayer(name, 0, 0, 0, idForeign, "", 0);
+            playerDAO.createPlayer(name, 0, 0, 0, idForeign, "../image/player/default.jpg", 0);
             int idPlayer = playerDAO.getIdByIdForegin(idForeign);
             profileDao.createProfile(age, address, email, idForeign);
 //
