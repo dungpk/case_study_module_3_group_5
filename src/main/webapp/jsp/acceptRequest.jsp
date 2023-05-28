@@ -185,16 +185,17 @@
   <form action="/quat" method="post">
     <input type="hidden" name="action" value="accept_request">
     <input type="hidden" name="account_id" value= ${requestScope['id']}>
-    <input type="hidden" name="request_id" value=${request.getId()}>
-    <input type="hidden" name="hours" value=${request.getHours()}>
+    <input type="hidden" name="request_id" value=${requestScope['request'].getId()}>
+    <input type="hidden" name="hours" value=${requestScope['request'].getHours()}>
+    <input type="hidden" name="coin" value="${requestScope['coin']}">
 
     <fieldset>
       <legend>
         <img src="../image/player/default.jpg" alt="">
       </legend>
-      <p>Tên người chơi: ${request.getUserName()}</p><br>
-      <p>Giờ Thuê:${request.getHours()}</p><br>
-      <p>Tin Nhắn:${request.getDescription()}</p><br>
+      <p>Tên người chơi: ${requestScope['request'].getUserName()}</p><br>
+      <p>Giờ Thuê:${requestScope['request'].getHours()}</p><br>
+      <p>Tin Nhắn:${requestScope['request'].getDescription()}</p><br>
       <input type="submit" value="Đồng ý" id="submit">
     </fieldset>
   </form>

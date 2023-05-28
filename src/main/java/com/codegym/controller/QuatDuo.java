@@ -501,7 +501,7 @@ public class QuatDuo extends HttpServlet {
             playerDAO.updateCoinPlayer(idPlayer, player.getCoin() + hours * pricePlayer);
             requestDAO.deleteRecordByRequestId(requestId);
 
-            request.setAttribute("coin", coinUser - hours * pricePlayer);
+            request.setAttribute("coin", player.getCoin() + hours * pricePlayer);
 
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã nhận lời thuê từ user !");
