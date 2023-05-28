@@ -85,6 +85,7 @@ button:hover{
     flex-direction: row;
     justify-content: right;
     padding-right: 10px;
+    align-items: center;
 }
 .header{
     height: 64px;

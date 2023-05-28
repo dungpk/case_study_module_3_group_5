@@ -270,7 +270,7 @@ public class QuatDuo extends HttpServlet {
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name, 0, idForeign);
             profileDao.createProfile(age, address, email, idForeign);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.jspl");
             dispatcher.forward(request, response);
         }
     }
@@ -350,7 +350,7 @@ public class QuatDuo extends HttpServlet {
             // Thực hiện các xử lý tương ứng với giá trị của option ở đây
             gameDAO.createGamePlayer(option, idInt, 100);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.jsp");
         dispatcher.forward(request, response);
     }
 
