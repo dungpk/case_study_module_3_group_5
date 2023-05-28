@@ -139,6 +139,20 @@
         padding: 5px;
         margin-left: 5px;
       }
+      #create{
+          text-decoration: none;
+          color: #03e9f4;
+          font-family: Tahoma;
+          font-size: 20px;
+          cursor: pointer;
+      }
+      #create:hover{
+          display: block;
+          width: 300px;
+          height: 30px;
+          background-color: #03e9f4;
+          color: white;
+      }
     </style>
 </head>
 <body>
@@ -152,16 +166,24 @@
 </div>
 <div class="main col-12">
     <div class="content col-10">
+        <a href="/admin?action=create" id="create">Tạo một dân chơi</a>
         <table>
             <tr>
               <th>ID</th>
               <th>Username</th>
               <th>Password</th>
               <th>Role</th>
-                <th>Coin</th>
               <th>Action</th>
             </tr>
-
+            <c:forEach items="${requestScope['list']}" var="account">
+                <tr>
+                    <td>${account.getId()}</td>
+                    <td>${account.getUsername()}</td>
+                    <td>${account.getPassword()}</td>
+                    <td>${account.getRole()}</td>
+                    <td><a href="/admin?action=edit&id=${account.getId()}&role=${account.getRole()}"><button>Edit</button></a><a href="/admin?action=delete?id=${account.getId()}&role=${account.getRole()}"><button>Delete</button></a></td>
+                </tr>
+            </c:forEach>
         </table>
     </div>
 </div>

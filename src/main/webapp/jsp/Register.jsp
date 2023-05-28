@@ -160,7 +160,7 @@
     <input hidden="hidden" name="action" value="createUser">
     <input type="submit" value="Submit" id="submit"/>
   </form>
-  <a href="/Admin?action=playerRegister" id="player">Sign up as player!</a>
+  <a href="/quat?action=playerRegister" id="player">Sign up as player!</a>
 </div>
 </body>
 </html>

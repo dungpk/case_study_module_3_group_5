@@ -231,10 +231,10 @@
         <c:forEach items="${requestScope['playerList']}" var="player">
             <div class="detail_player col-3 vip">
                 <div class="detail_pic col-12">
-                    <a href="/quat?action=&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
-                    <a href="/quat?action=&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
+                    <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}coin/trận</span></p>
                 </div>
             </div>

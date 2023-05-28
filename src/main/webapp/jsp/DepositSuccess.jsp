@@ -1,7 +1,6 @@
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
-<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -80,54 +79,6 @@
             to{text-shadow: 0 0 50px #03e9f4,
             0 0 100px #03e9f4;}
         }
-        .main{
-            margin-top: 64.8px;
-            height: 600px;
-            background-color: #1f1f22;
-            display: block;
-            border-radius: 10px;
-        }
-        .real-money{
-            height: 300px;
-            border: 1px solid #03e9f4;
-            margin-top: 50px;
-            margin-left: 70px;
-            border-radius: 10px;
-            float: left;
-            width: 18%;
-            display: flex;
-            flex-direction: column;
-        }
-        .deposit-way{
-            margin-top: 45px;
-            height: 200px;
-            /*border: 1px solid #03e9f4;*/
-            float: left;
-            display: flex;
-            flex-direction: row;
-            overflow-x: auto;
-            align-items: center;
-            margin-left: 240px;
-        }
-        ::-webkit-scrollbar-track{
-            height: 5px;
-            background-color: #1f1f22;
-        }
-        ::-webkit-scrollbar{
-            height: 5px;
-        }
-        ::-webkit-scrollbar-thumb{
-            background-color: #03e9f4;
-        }
-        .real-money img{
-            width: 100%;
-            height: 65%;
-            border-radius: 10px;
-        }
-        .real-money a{
-            text-indent: 80px;
-            margin-top: 25px;
-        }
         a{
             text-decoration: none;
             color: #03e9f4;
@@ -161,43 +112,32 @@
         .header2 button{
             margin-right: 20px;
         }
+        .main{
+            height: 500px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background-color: #1f1f22;
+            color: crimson;
+            font-family: Tahoma;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="#">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <button>Trang chủ</button>
-        <button>Trang cá nhân</button>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
+        <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
     </div>
 </div>
 <div class="main col-10">
-    <div class="real-money ">
-        <img src="../image/Coins/coin.png" alt="">
-        <a href=""><button>100 coin</button></a>
-    </div>
-    <div class="real-money">
-        <img src="../image/Coins/coin.png" alt="">
-        <a href=""><button>500 coin</button></a>
-    </div>
-    <div class="real-money">
-        <img src="../image/Coins/coin.png" alt="">
-        <a href=""><button>1000 coin</button></a>
-    </div>
-    <div class="real-money">
-        <img src="../image/Coins/coin.png" alt="">
-        <a href=""><button>1500 coin</button></a>
-    </div>
-    <div class="deposit-way col-8">
-        <img src="../image/Coins/MasterCard-Logo-1990.png" alt="">
-        <img src="../image/Coins/visa.png" alt="">
-        <img src="../image/Coins/viettin.jpg" alt="">
-        <img src="../image/Coins/vietcombank.jpg" alt="">
-        <img src="../image/Coins/tech.png" alt="">
-    </div>
+    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2>Nạp tiền thành công! Số dư hiện tại: ${requestScope['coin']}</h2></a>
 </div>
-
 </body>
 </html>

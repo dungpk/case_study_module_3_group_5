@@ -16,4 +16,7 @@ public interface IPlayerDAO {
     public boolean updateProfile(Player player) throws SQLException;
     public Player searchPlayerById(int id);
     List<Game> searchGameByIdPlayer(int id);
+
+    void updateCoinPlayer(int playerId,int coin);
+
 }
