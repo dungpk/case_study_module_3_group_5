@@ -47,7 +47,7 @@
                     <p>ID: ${requestScope['player'].getPlayer_id()}</p>
                     <p>Tên: ${requestScope['player'].getName()}</p>
                     <p>Giá: ${requestScope['player'].getPrice()} coin/trận</p>
-                    <a href="/quat?action=rent&account_id=${requestScope['id']}&player_id=${requestScope['player'].getPlayer_id()}" ><button>Thuê</button></a>
+                    <a href="/quat?action=rent&account_id=${requestScope['id']}&coin=300&player_id=${requestScope['player'].getPlayer_id()}" ><button>Thuê</button></a>
                     <button>Nhắn tin</button>
                 </div>
             </div>

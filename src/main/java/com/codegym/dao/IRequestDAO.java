@@ -10,4 +10,6 @@ public interface IRequestDAO {
     int getIdPlayerByIdRequest(int idRequest);
     int getIdUserByIdRequest(int idRequest);
     void deleteRecordByRequestId(int requestId);
+
+    void insertRequest(int hours,String description,int userId,int playerId);
 }

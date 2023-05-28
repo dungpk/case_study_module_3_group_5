@@ -16,6 +16,9 @@ public class RequestDAO implements IRequestDAO {
     static private String GET_ID_PLAYER_BY_ID_REQUEST = "SELECT player_id FROM request WHERE id = ?";
 
     static private String DELETE_REQUEST_BY_ID_REQUEST = "DELETE FROM request WHERE id = ?";
+    static private String INSERT_REQUEST = "INSERT INTO request (hours, description, user_id, player_id)\n" +
+            "    VALUES (?,?,?,?)";
+
 
     public RequestDAO() {
     }
@@ -109,6 +112,20 @@ public class RequestDAO implements IRequestDAO {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST_BY_ID_REQUEST);
             preparedStatement.setInt(1, requestId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void insertRequest(int hours, String description, int userId, int playerId) {
+        try (Connection connection = getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST);
+            preparedStatement.setInt(1, hours);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, userId);
+            preparedStatement.setInt(4, playerId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
