@@ -329,6 +329,7 @@ textarea{
 .coin{
     color: #03e9f4;
     font-size: 17px;
+    margin-left: 20px;
 }
 .coin span{
     color: yellow;

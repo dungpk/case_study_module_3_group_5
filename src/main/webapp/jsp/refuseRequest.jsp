@@ -161,6 +161,7 @@
     .coin{
       color: #03e9f4;
       font-size: 17px;
+      margin-left: 20px;
     }
     .coin span{
       color: yellow;
@@ -171,12 +172,12 @@
 <body>
 <div class="header col-12">
   <div class="header1 col-6">
-    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
+    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=${requestScope['coin']}">QUAT<span>DUO</span></a>
   </div>
   <div class="header2 col-6">
-    <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+    <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
     <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
-    <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><button>Nạp tiền</button></a>
+    <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><button>Nạp tiền</button></a>
     <a href="/quat?action=logout"><button>Đăng xuất</button></a>
   </div>
 </div>
@@ -185,6 +186,7 @@
     <input type="hidden" name="action" value="refuse_request">
     <input type="hidden" name="account_id" value= ${requestScope['id']}>
     <input type="hidden" name="request_id" value=${request.getId()}>
+    <input type="hidden" name="coin" value="${requestScope['coin']}">
     <fieldset>
       <legend>
         <img src="../image/player/default.jpg" alt="">

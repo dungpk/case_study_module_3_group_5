@@ -162,6 +162,7 @@
             margin-right: 20px;
         }
         .coin{
+            margin-left: 20px;
             color: #03e9f4;
             font-size: 17px;
         }
@@ -174,12 +175,12 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=${requestScope['coin']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
-        <a href="/quat?action=profile&account_id=${requestScope['id']}&coin=3000"><button>Trang cá nhân</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><button>Trang chủ</button></a>
+        <a href="/quat?action=profile&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><button>Trang cá nhân</button></a>
     </div>
 </div>
 <div class="main col-10">

@@ -10,12 +10,12 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&accoun_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&accoun_id=${requestScope['id']}&coin=${requestScope['coin']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><button>Nạp tiền</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><button>Trang chủ</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><button>Nạp tiền</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
@@ -24,8 +24,8 @@
     <div class="sidebar col-2">
         <c:forEach items="${requestScope['gameList']}" var="game">
             <div class="imgside">
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}&coin=3000" ><img src="${game.getImageSource()}" alt=""></a>
-                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}&coin=3000" >${game.getName()}</a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}&coin=${requestScope['coin']}" ><img src="${game.getImageSource()}" alt=""></a>
+                <a href="/quat?action=search_player_by_game&id=${game.getId()}&account_id=${requestScope['id']}&coin=${requestScope['coin']}" >${game.getName()}</a>
             </div>
         </c:forEach>
     </div>
@@ -47,7 +47,7 @@
                     <p>ID: ${requestScope['player'].getPlayer_id()}</p>
                     <p>Tên: ${requestScope['player'].getName()}</p>
                     <p>Giá: ${requestScope['player'].getPrice()} coin/trận</p>
-                    <a href="/quat?action=rent&account_id=${requestScope['id']}&player_id=${requestScope['player'].getPlayer_id()}" ><button>Thuê</button></a>
+                    <a href="/quat?action=rent&account_id=${requestScope['id']}&player_id=${requestScope['player'].getPlayer_id()}&coin=${requestScope['coin']}" ><button>Thuê</button></a>
                     <button>Nhắn tin</button>
                 </div>
             </div>
