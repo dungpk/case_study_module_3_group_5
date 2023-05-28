@@ -40,6 +40,7 @@ public class QuatDuo extends HttpServlet {
                     confirmLogin(request, response);
                     break;
                 case "search_player":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     searchPlayer(request, response);
                     break;
@@ -53,14 +54,17 @@ public class QuatDuo extends HttpServlet {
                     createGame(request, response);
                     break;
                 case "accept_request":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     acceptRequest(request,response);
                     break;
                 case "refuse_request":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     refuseRequest(request,response);
                     break;
                 case "user_edit_confirm":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     confirmUpdateUser(request,response);
                     break;
@@ -85,6 +89,7 @@ public class QuatDuo extends HttpServlet {
                     break;
                 case "search_player_by_game":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     searchPlayerByGame(request, response);
                     break;
                 case "register":
@@ -94,28 +99,36 @@ public class QuatDuo extends HttpServlet {
                     logout(request, response);
                     break;
                 case "goHomePage":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     goHomePage(request, response);
                     break;
                 case "display_player":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     displayPlayer(request, response);
                 case "profile":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     displayProfile(request, response);
                     break;
                 case "playerRegister":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     playerRegister(request, response);
                     break;
                 case "accept_request":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showFormAccept(request, response);
                     break;
                 case "refuse_request":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showFormRefuse(request, response);
                     break;
                 case "deposit":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showDepositForm(request, response);
                     break;
@@ -124,10 +137,12 @@ public class QuatDuo extends HttpServlet {
                     deposit(request, response);
                     break;
                 case "user_edit":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showUserEditForm(request, response);
                     break;
                 case "rent":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     request.setAttribute("player_id", Integer.parseInt(request.getParameter("player_id")));
                     showFormRent(request, response);
@@ -207,6 +222,18 @@ public class QuatDuo extends HttpServlet {
             response.sendRedirect("jsp/login.jsp");
         } else {
             request.setAttribute("id", account.getId());
+            String role =  account.getRole();
+
+            if(role.equals("user")){
+                User user = accountDao.getUserByAccountId(account.getId());
+                request.setAttribute("coin",user.getCoin());
+            }else if (role.equals("player")){
+                Player player = accountDao.getPlayerByAccountId(account.getId());
+                request.setAttribute("coin",player.getCoin());
+            }else{
+
+            }
+
             goHomePage(request, response);
         }
     }
@@ -319,7 +346,7 @@ public class QuatDuo extends HttpServlet {
 
         if (role.equals("user")) {
             int accountId = Integer.parseInt(request.getParameter("account_id"));
-            User user = accountDao.getUserUserByAccountId(accountId);
+            User user = accountDao.getUserByAccountId(accountId);
             request.setAttribute("user",user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/userProfile.jsp");
             request.setCharacterEncoding("UTF-8");
@@ -459,6 +486,7 @@ public class QuatDuo extends HttpServlet {
         int coinUser = userDao.checkCoinUserByName(idUser);
 
         if(coinUser<hours*pricePlayer){
+            request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
             requestDAO.deleteRecordByRequestId(requestId);
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã hủy đơn đặt hàng do người thuê không đủ tiền !");
@@ -467,6 +495,9 @@ public class QuatDuo extends HttpServlet {
             userDAO.updateCoinUser(idUser,coinUser - hours*pricePlayer);
             playerDAO.updateCoinPlayer(idPlayer,player.getCoin()+hours*pricePlayer);
             requestDAO.deleteRecordByRequestId(requestId);
+
+            request.setAttribute("coin",coinUser - hours*pricePlayer);
+
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã nhận lời thuê từ user !");
             displayProfile(request,response);
@@ -478,7 +509,7 @@ public class QuatDuo extends HttpServlet {
         try {
             AccountDao accountDao = new AccountDao();
 
-            User user = accountDao.getUserUserByAccountId(Integer.parseInt(request.getParameter("account_id")));
+            User user = accountDao.getUserByAccountId(Integer.parseInt(request.getParameter("account_id")));
 
             ProfileDao profileDao = new ProfileDao();
 

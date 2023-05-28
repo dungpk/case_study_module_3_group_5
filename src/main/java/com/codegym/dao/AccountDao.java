@@ -192,7 +192,7 @@ public class AccountDao implements IAccountDao{
     }
 
     @Override
-    public User getUserUserByAccountId(int accountId) {
+    public User getUserByAccountId(int accountId) {
         User user;
         try (Connection connection = getConnection();
              // Step 2:Create a statement using connection object
