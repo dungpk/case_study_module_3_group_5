@@ -107,8 +107,42 @@
         .main{
             margin: auto;
             background-color: #1f1f22;
-            height: 600px;
+            height: 800px;
             border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #03e9f4;
+            font-size: 17px;
+            font-family: Tahoma;
+            padding-left: 30px;
+        }
+        img{
+            border-radius: 50%;
+            width: 200px;
+        }
+        fieldset{
+            /*margin-bottom: 30px;*/
+            border: 1px solid #03e9f4;
+        }
+        fieldset input{
+            margin-top: 60px;
+            width: 200px;
+            height: 30px;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+        #submit{
+            color: white;
+            background-color: #03e9f4;
+            width: 150px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+        #submit:hover{
+            color: #03e9f4;
+            background-color: white;
         }
     </style>
 </head>
@@ -124,8 +158,20 @@
     </div>
 </div>
 <div class="main col-10">
-
+    <form method="post" action="">
+        <input type="hidden" name="action" value="user_edit"    >
+        <fieldset>
+            <legend><img src="../image/Admin/default.jpg" alt=""></legend>
+            <label>Tên: </label><input type="text" name="name"><br>
+            <label>Tuổi: </label>
+            <input type="text" name="age"><br>
+            <label>Email: </label>
+            <input type="text" name="email"><br>
+            <label>Địa chỉ: </label>
+            <input type="text" name="address"><br>
+            <input type="submit" value="Đồng ý" id="submit">
+        </fieldset>
+    </form>
 </div>
-
 </body>
 </html>

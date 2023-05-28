@@ -39,7 +39,7 @@
                             <p>Địa chỉ: ${requestScope['user'].getAddress()}</p>
                       </div>
                       <div class="footer-box col-12">
-                          <a href=""><button>Chỉnh sửa</button></a>
+                          <a href="/quat?action=user_edit&account_id=${requestScope['id']}"><button>Chỉnh sửa</button></a>
                       </div>
                   </div>
                   <div class=""></div>

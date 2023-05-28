@@ -119,6 +119,10 @@ public class QuatDuo extends HttpServlet {
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     deposit(request, response);
                     break;
+                case "user_edit":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    showUserEditForm(request, response);
+                    break;
                 default:
                     break;
             }
@@ -452,7 +456,15 @@ public class QuatDuo extends HttpServlet {
 
         displayProfile(request,response);
     }
-
-
+    private void showUserEditForm(HttpServletRequest request, HttpServletResponse response){
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/UserEdit.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
