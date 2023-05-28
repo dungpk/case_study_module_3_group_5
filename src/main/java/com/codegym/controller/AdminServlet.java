@@ -43,6 +43,7 @@ public class AdminServlet extends HttpServlet {
                     break;
                 default:
                     ListAccount(request, response);
+                    break;
             }
     }
     @Override

@@ -329,7 +329,7 @@ public class QuatDuo extends HttpServlet {
         }
         for (int option : intOptions) {
             // Thực hiện các xử lý tương ứng với giá trị của option ở đây
-            gameDAO.createGamePlayer(option, idInt, 0);
+            gameDAO.createGamePlayer(option, idInt, 100);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
         dispatcher.forward(request, response);
