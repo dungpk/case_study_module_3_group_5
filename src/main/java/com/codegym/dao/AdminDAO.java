@@ -23,17 +23,16 @@ public class AdminDAO {
     public int CreatePlayer(String username, String password, String name, int coin, int rate, int price){
         int id = -1;
         try(Connection connection = getConnection()) {
-            CallableStatement statement = connection.prepareCall("{?=call createPlayer(?, ?, ?, ?, ?, ?)}");
-            statement.setString(2, username);
-            statement.setString(3, password);
-            statement.setString(4, name);
-            statement.setInt(5, coin);
-            statement.setInt(6, rate);
-            statement.setInt(7, price);
-            statement.registerOutParameter(1, Types.INTEGER);
-//            statement.execute();
+            CallableStatement statement = connection.prepareCall("{call createPlayer(?, ?, ?, ?, ?, ?, ?)}");
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, name);
+            statement.setInt(4, coin);
+            statement.setInt(5, rate);
+            statement.setInt(6, price);
+            statement.registerOutParameter(7, Types.INTEGER);
             statement.execute();
-            id = statement.getInt(1);
+            id = statement.getInt(7);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

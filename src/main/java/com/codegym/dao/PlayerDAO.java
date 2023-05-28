@@ -22,6 +22,11 @@ public class PlayerDAO implements IPlayerDAO{
     private static final String GET_LIST_COIN = "SELECT coin from player";
     private static final String GET_ID_BY_IDFOREIGN = "SELECT id_player FROM player WHERE foreign_account =  ?";
 
+    private static final String UPDATE_COIN_PLAYER = "UPDATE quatduo.player SET coin = ? where id_player = ?";
+
+
+
+
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -232,6 +237,20 @@ public class PlayerDAO implements IPlayerDAO{
             printSQLException(e);
         }
         return games;
+    }
+
+    @Override
+    public void updateCoinPlayer(int playerId, int coin) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(UPDATE_COIN_PLAYER)) {
+
+            callableStatement.setInt(1,coin);
+            callableStatement.setInt(2,playerId);
+            callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
 
 

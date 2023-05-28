@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "QuatDuo", urlPatterns = "/quat")
 public class QuatDuo extends HttpServlet {
@@ -50,6 +51,14 @@ public class QuatDuo extends HttpServlet {
                 case "createGame":
                     createGame(request, response);
                     break;
+                case "accept_request":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    acceptRequest(request,response);
+                    break;
+                case "refuse_request":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    refuseRequest(request,response);
+                    break;
                 default:
                     break;
             }
@@ -69,7 +78,6 @@ public class QuatDuo extends HttpServlet {
                 case "login":
                     showFormLogin(request, response);
                     break;
-
                 case "search_player_by_game":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     searchPlayerByGame(request, response);
@@ -95,12 +103,11 @@ public class QuatDuo extends HttpServlet {
                 case "playerRegister":
                     playerRegister(request, response);
                     break;
-
                 case "accept_request":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showFormAccept(request, response);
                     break;
-                case "accept_refuse":
+                case "refuse_request":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showFormRefuse(request, response);
                     break;
@@ -172,7 +179,13 @@ public class QuatDuo extends HttpServlet {
         Account account = accountDao.confirmLogin(name, password);
         if (name.equals("admin") && password.equals("admin")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
+
+            request.setAttribute("playerCoin", playerDAO.listCoin());
+//            request.setAttribute("listPlayer", accountDao.listAccountPlayer());
+//            request.setAttribute("listUser", accountDao.listAccountUser());
+
             request.setAttribute("list", accountDao.listAccount());
+
             dispatcher.forward(request, response);
         } else if (account == null) {
             response.sendRedirect("jsp/login.jsp");
@@ -289,7 +302,6 @@ public class QuatDuo extends HttpServlet {
 
         if (role.equals("user")) {
 
-
         } else {
             Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
             request.setAttribute("player", player);
@@ -300,7 +312,6 @@ public class QuatDuo extends HttpServlet {
             RequestDAO requestDAO = new RequestDAO();
             List<Request> requests = requestDAO.getRequestByIdPlayer(player.getPlayer_id());
             request.setAttribute("requests", requests);
-
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerProfile.jsp");
             dispatcher.forward(request, response);
@@ -347,13 +358,31 @@ public class QuatDuo extends HttpServlet {
     }
 
     private void showFormAccept(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        String userName = request.getParameter("name_user");
+        int hours = Integer.parseInt(request.getParameter("hours"));
+        String des = request.getParameter("des");
+
+        Request requestRent = new Request(requestId,hours,des,userName );
+        request.setAttribute("request",requestRent);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/acceptRequest.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showFormRefuse(HttpServletRequest request, HttpServletResponse response) {
+
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        String userName = request.getParameter("name_user");
+        int hours = Integer.parseInt(request.getParameter("hours"));
+        String des = request.getParameter("des");
+
+        Request requestRent = new Request(requestId,hours,des,userName );
+        request.setAttribute("request",requestRent);
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/refuseRequest.jsp");
         try {
+
             dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -376,5 +405,54 @@ public class QuatDuo extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
+
+    private void refuseRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        RequestDAO requestDAO = new RequestDAO();
+        requestDAO.deleteRecordByRequestId(requestId);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("message", "Đã hủy đơn đặt hàng !");
+        displayProfile(request,response);
+    }
+
+    private void acceptRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+
+        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        int hours = Integer.parseInt(request.getParameter("hours"));
+
+        RequestDAO requestDAO =  new RequestDAO();
+        int idPlayer = requestDAO.getIdPlayerByIdRequest(requestId);
+        int idUser = requestDAO.getIdUserByIdRequest(requestId);
+
+
+
+        PlayerDAO playerDAO = new PlayerDAO();
+        Player player = playerDAO.searchPlayerById(idPlayer);
+        int pricePlayer = player.getPrice();
+
+        UserDAO userDao = new UserDAO();
+        int coinUser = userDao.checkCoinUserByName(idUser);
+
+        if(coinUser<hours*pricePlayer){
+
+            requestDAO.deleteRecordByRequestId(requestId);
+            HttpSession session = request.getSession();
+            session.setAttribute("message", "Đã hủy đơn đặt hàng do người thuê không đủ tiền !");
+            displayProfile(request,response);
+        }else {
+            userDAO.updateCoinUser(idUser,coinUser - hours*pricePlayer);
+            playerDAO.updateCoinPlayer(idPlayer,player.getCoin()+hours*pricePlayer);
+            requestDAO.deleteRecordByRequestId(requestId);
+            HttpSession session = request.getSession();
+            session.setAttribute("message", "Đã nhận lời thuê từ user !");
+            displayProfile(request,response);
+        }
+
+
+        displayProfile(request,response);
+    }
+
+
 }
 

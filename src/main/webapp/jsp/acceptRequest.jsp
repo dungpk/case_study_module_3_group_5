@@ -174,13 +174,17 @@
 <div class="content col-10">
   <form action="/quat" method="post">
     <input type="hidden" name="action" value="accept_request">
+    <input type="hidden" name="account_id" value= ${requestScope['id']}>
+    <input type="hidden" name="request_id" value=${request.getId()}>
+    <input type="hidden" name="hours" value=${request.getHours()}>
+
     <fieldset>
       <legend>
         <img src="../image/player/default.jpg" alt="">
       </legend>
-      <p>ID: </p><br>
-      <p>Giờ thuê:</p><br>
-      <p>Tin nhắn:</p><br>
+      <p>Tên người chơi: ${request.getUserName()}</p><br>
+      <p>Giờ Thuê:${request.getHours()}</p><br>
+      <p>Tin Nhắn:${request.getDescription()}</p><br>
       <input type="submit" value="Đồng ý" id="submit">
     </fieldset>
   </form>

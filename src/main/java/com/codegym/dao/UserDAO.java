@@ -17,10 +17,14 @@ public class UserDAO implements IUserDAO {
 
 
     private static final String CREATE_USER = "insert into user (name, coin, foreign_account) VALUES (?,?,?)";
-    private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
+     private static final String GET_USER_BY_ID_USER = "SELECT * FROM user WHERE id = ?";
 
     private static final String GET_USER_BY_ACCOUNT_ID = "SELECT * from user where foreign_account = ?";
     private static final String DEPOSIT_COIN = "UPDATE quatduo.user SET coin = ? where foreign_account = ?";
+
+    private static final String GET_COIN_BY_ID_USER = "select coin from user where id = ?";
+
+    private static final String UPDATE_COIN_USER = "UPDATE quatduo.user SET coin = ? where id = ?";
     public UserDAO() {
     }
 
@@ -117,6 +121,43 @@ public class UserDAO implements IUserDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int checkCoinUserByName(int userId) {
+        int coin=0;
+
+        try (Connection connection = getConnection();
+             // Step 2:Create a statement using connection object
+
+             CallableStatement callableStatement = connection.prepareCall(GET_COIN_BY_ID_USER)) {
+            // Step 3: Execute the query or update query
+            callableStatement.setInt(1,userId);
+            ResultSet rs = callableStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                coin = rs.getInt("coin");
+                return coin;
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return 0;
+    }
+
+    @Override
+    public void updateCoinUser(int userId, int coin) {
+        try (Connection connection = getConnection();
+             CallableStatement callableStatement = connection.prepareCall(UPDATE_COIN_USER)) {
+
+            callableStatement.setInt(1,coin);
+            callableStatement.setInt(2,userId);
+            callableStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
         }
     }
 }

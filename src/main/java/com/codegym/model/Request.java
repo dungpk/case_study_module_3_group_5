@@ -9,6 +9,13 @@ public class Request {
 
     String userName;
 
+    public Request(int id, int hours, String description, String userName) {
+        this.id = id;
+        this.hours = hours;
+        this.description = description;
+        this.userName = userName;
+    }
+
     public Request(int id, int hours, String description, int id_user, int id_player) {
         this.id = id;
         this.hours = hours;
@@ -24,9 +31,6 @@ public class Request {
         this.id_user = id_user;
         this.id_player = id_player;
         this.userName = userName;
-    }
-
-    public Request() {
     }
 
     public int getId() {
@@ -76,4 +80,8 @@ public class Request {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public Request() {
+    }
+
 }
