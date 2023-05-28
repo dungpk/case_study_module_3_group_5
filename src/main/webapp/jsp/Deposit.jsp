@@ -174,30 +174,30 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
-        <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
+        <a href="/quat?action=profile&account_id=${requestScope['id']}&coin=3000"><button>Trang cá nhân</button></a>
     </div>
 </div>
 <div class="main col-10">
     <div class="real-money ">
         <img src="../image/Coins/coin.png" alt="">
-        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&coin=100"><button>100 coin</button></a>
+        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&d_coin=100"><button>100 coin</button></a>
     </div>
     <div class="real-money">
         <img src="../image/Coins/coin.png" alt="">
-        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&coin=500"><button>500 coin</button></a>
+        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&d_coin=500"><button>500 coin</button></a>
     </div>
     <div class="real-money">
         <img src="../image/Coins/coin.png" alt="">
-        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&coin=1000"><button>1000 coin</button></a>
+        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&d_coin=1000"><button>1000 coin</button></a>
     </div>
     <div class="real-money">
         <img src="../image/Coins/coin.png" alt="">
-        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&coin=1500"><button>1500 coin</button></a>
+        <a href="/quat?action=coin_deposit&account_id=${requestScope['id']}&d_coin=1500"><button>1500 coin</button></a>
     </div>
     <div class="deposit-way col-8">
         <img src="../image/Coins/MasterCard-Logo-1990.png" alt="">

@@ -10,13 +10,13 @@
 <body>
     <div class="header col-12">
         <div class="header1 col-6">
-            <a href="#">QUAT<span>DUO</span></a>
+            <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
         </div>
         <div class="header2 col-6">
-            <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-            <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"></a><button>Trang chủ</button>
-            <a href="/quat?action=deposit&account_id=${requestScope['id']}"></a><button>Nạp tiền</button>
-            <a href="/quat?action=logout"></a><button>Đăng xuất</button>
+            <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+            <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
+            <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><button>Nạp tiền</button></a>
+            <a href="/quat?action=logout"><button>Đăng xuất</button></a>
         </div>
     </div>
     <div class="main col-12">
@@ -40,7 +40,7 @@
                             <p>Địa chỉ:  ${profile.getAddress()}</p>
                       </div>
                       <div class="footer-box col-12">
-                          <a href="/quat?action=user_edit&account_id=${requestScope['id']}"><button>Chỉnh sửa</button></a>
+                          <a href="/quat?action=user_edit&account_id=${requestScope['id']}&coin=3000"><button>Chỉnh sửa</button></a>
                       </div>
                   </div>
                   <div class=""></div>

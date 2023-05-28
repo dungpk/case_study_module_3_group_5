@@ -21,11 +21,11 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
@@ -82,8 +82,8 @@
               <p>Giờ thuê: ${request.getHours()}</p>
               <p>Tin nhắn: ${request.getDescription()}</p>
               <span>
-                    <a href="/quat?action=accept_request&account_id=${requestScope['id']}&request_id=${request.getId()}&name_user=${request.getUserName()}&hours=${request.getHours()}&des=${request.getDescription()}"><button>Đồng ý</button></a>
-                    <a href="/quat?action=refuse_request&account_id=${requestScope['id']}&request_id=${request.getId()}&name_user=${request.getUserName()}&hours=${request.getHours()}&des=${request.getDescription()}"><button>Huỷ</button></a>
+                    <a href="/quat?action=accept_request&account_id=${requestScope['id']}&request_id=${request.getId()}&name_user=${request.getUserName()}&hours=${request.getHours()}&des=${request.getDescription()}&coin=3000"><button>Đồng ý</button></a>
+                    <a href="/quat?action=refuse_request&account_id=${requestScope['id']}&request_id=${request.getId()}&name_user=${request.getUserName()}&hours=${request.getHours()}&des=${request.getDescription()}&coin=3000"><button>Huỷ</button></a>
               </span>
           </div>
       </div>

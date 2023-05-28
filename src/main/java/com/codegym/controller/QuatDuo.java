@@ -305,7 +305,7 @@ public class QuatDuo extends HttpServlet {
             int idForeign = accountDao.getIdByUserName(userName);
             userDao.createUser(name, 0, idForeign);
             profileDao.createProfile(age, address, email, idForeign);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.jspl");
             dispatcher.forward(request, response);
         }
     }
@@ -391,7 +391,7 @@ public class QuatDuo extends HttpServlet {
             // Thực hiện các xử lý tương ứng với giá trị của option ở đây
             gameDAO.createGamePlayer(option, idInt, 100);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/successfulRegistration.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -442,7 +442,7 @@ public class QuatDuo extends HttpServlet {
 
     private void deposit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("account_id"));
-        int coin = Integer.parseInt(request.getParameter("coin"));
+        int coin = Integer.parseInt(request.getParameter("d_coin"));
         User user = userDAO.getUserByAccountId(id);
         if (user.getName() != null) {
             int currentCoin = user.getCoin();

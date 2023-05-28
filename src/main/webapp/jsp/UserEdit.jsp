@@ -160,20 +160,20 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"></a><button>Trang chủ</button>
-        <a href="/quat?action=deposit&account_id=${requestScope['id']}"></a><button>Nạp tiền</button>
-        <a href="/quat?action=logout"></a><button>Đăng xuất</button>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=3000"><button>Trang chủ</button></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=3000"><button>Nạp tiền</button></a>
+        <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
 <div class="main col-10">
     <form method="post" action="/quat">
         <input type="hidden" name="action" value="user_edit_confirm">
         <input type="hidden" name="account_id" value=${requestScope['id']}>
-
+        <input type="hidden" name="coin" value="3000">
         <fieldset>
             <legend><img src="../image/Admin/default.jpg" alt=""></legend>
             <label>Tên: </label><input type="text" name="name" value="<c:out value='${profile.name}' />" ><br>
