@@ -20,7 +20,7 @@ public class Player {
     public Player() {
     }
 
-    public Player(int player_id,int account_id ,String name, int rate, int price, int coin, String img) {
+    public Player(int player_id,int account_id ,String name, int rate, int price, int coin , String img) {
         this.player_id = player_id;
         this.account_id = account_id;
         this.name = name;

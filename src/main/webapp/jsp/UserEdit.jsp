@@ -1,3 +1,6 @@
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,18 +170,20 @@
     </div>
 </div>
 <div class="main col-10">
-    <form method="post" action="">
-        <input type="hidden" name="action" value="user_edit"    >
+    <form method="post" action="/quat">
+        <input type="hidden" name="action" value="user_edit_confirm">
+        <input type="hidden" name="account_id" value=${requestScope['id']}>
+
         <fieldset>
             <legend><img src="../image/Admin/default.jpg" alt=""></legend>
-            <label>Tên: </label><input type="text" name="name"><br>
+            <label>Tên: </label><input type="text" name="name" value="<c:out value='${profile.name}' />" ><br>
             <label>Tuổi: </label>
-            <input type="text" name="age"><br>
+            <input type="text" name="age" value="<c:out value='${profile.age}' />"><br>
             <label>Email: </label>
-            <input type="text" name="email"><br>
+            <input type="text" name="email" value="<c:out value='${profile.email}' />"><br>
             <label>Địa chỉ: </label>
-            <input type="text" name="address"><br>
-            <input type="submit" value="Đồng ý" id="submit">
+            <input type="text" name="address"  value="<c:out value='${profile.address}'/>"><br>
+            <input type="submit" value="Đồng ý" id="submit"/>
         </fieldset>
     </form>
 </div>

@@ -34,10 +34,10 @@
                   <div class="box col-11">
                       <h1>Thông tin</h1>
                       <div class="header-box col-12">
-                            <p>Tên: ${requestScope['user'].getName()}</p>
-                            <p>Tuổi: ${requestScope['user'].getAge()}</p>
-                            <p>Email: ${requestScope['user'].getEmail()}</p>
-                            <p>Địa chỉ: ${requestScope['user'].getAddress()}</p>
+                            <p>Tên: ${user.getName()}</p>
+                            <p>Tuổi: ${profile.getAge()}</p>
+                            <p>Email:  ${profile.getEmail()}</p>
+                            <p>Địa chỉ:  ${profile.getAddress()}</p>
                       </div>
                       <div class="footer-box col-12">
                           <a href="/quat?action=user_edit&account_id=${requestScope['id']}"><button>Chỉnh sửa</button></a>

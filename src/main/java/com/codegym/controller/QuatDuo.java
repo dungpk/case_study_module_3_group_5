@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "QuatDuo", urlPatterns = "/quat")
 public class QuatDuo extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
     private UserDAO userDAO;
 
@@ -58,6 +59,10 @@ public class QuatDuo extends HttpServlet {
                 case "refuse_request":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     refuseRequest(request,response);
+                    break;
+                case "user_edit_confirm":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    confirmUpdateUser(request,response);
                     break;
                 default:
                     break;
@@ -188,6 +193,9 @@ public class QuatDuo extends HttpServlet {
         if (name.equals("admin") && password.equals("admin")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
 
+//            request.setAttribute("userCoin", userDAO.listCoin());
+
+
             request.setAttribute("playerCoin", playerDAO.listCoin());
 //            request.setAttribute("listPlayer", accountDao.listAccountPlayer());
 //            request.setAttribute("listUser", accountDao.listAccountUser());
@@ -305,10 +313,16 @@ public class QuatDuo extends HttpServlet {
         Profile profile = profileDao.getProfileByAccountId(Integer.parseInt(request.getParameter("account_id")));
         request.setAttribute("profile", profile);
 
+
         AccountDao accountDao = new AccountDao();
         String role = accountDao.getRoleByAccountId(Integer.parseInt(request.getParameter("account_id")));
 
         if (role.equals("user")) {
+            int accountId = Integer.parseInt(request.getParameter("account_id"));
+            User user = accountDao.getUserUserByAccountId(accountId);
+            request.setAttribute("user",user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/userProfile.jsp");
+            dispatcher.forward(request, response);
 
         } else {
             Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
@@ -443,7 +457,6 @@ public class QuatDuo extends HttpServlet {
         int coinUser = userDao.checkCoinUserByName(idUser);
 
         if(coinUser<hours*pricePlayer){
-
             requestDAO.deleteRecordByRequestId(requestId);
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã hủy đơn đặt hàng do người thuê không đủ tiền !");
@@ -457,11 +470,22 @@ public class QuatDuo extends HttpServlet {
             displayProfile(request,response);
         }
 
-
         displayProfile(request,response);
     }
     private void showUserEditForm(HttpServletRequest request, HttpServletResponse response){
         try {
+            AccountDao accountDao = new AccountDao();
+
+            User user = accountDao.getUserUserByAccountId(Integer.parseInt(request.getParameter("account_id")));
+
+            ProfileDao profileDao = new ProfileDao();
+
+            Profile profile = profileDao.getProfileByAccountId(Integer.parseInt(request.getParameter("account_id")));
+
+            profile.setName(user.getName());
+
+            request.setAttribute("profile",profile);
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/UserEdit.jsp");
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -470,7 +494,21 @@ public class QuatDuo extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    private void showFormRent(HttpServletRequest request, HttpServletResponse response){
+
+    private void confirmUpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age"));
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        int accountID = Integer.parseInt(request.getParameter("account_id"));
+
+        AccountDao accountDao = new AccountDao();
+        accountDao.updateUserNameByAccountId(accountID, name);
+        accountDao.updateProfileUserByAccountId(accountID, age, address, email);
+        displayProfile(request, response);
+    }
+
+    private void showFormRent(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRent.jsp");
             dispatcher.forward(request, response);

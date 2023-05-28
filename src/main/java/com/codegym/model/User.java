@@ -14,7 +14,7 @@ public class User {
     public User(int id, String name, int coin) {
         this.id = id;
         this.name = name;
-        this.coin = coin;
+        this.coin = coin ;
         this.image_source = "../image/player/default.jpg";
     }
 
@@ -34,7 +34,7 @@ public class User {
     }
 
     public void setCoin(int coin) {
-        this.coin = coin;
+        this. coin= coin;
     }
 
     public User(String name, int age, String email, String phone, String address, String interest) {
