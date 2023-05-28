@@ -38,7 +38,7 @@ public class AdminServlet extends HttpServlet {
                 case "edit":
                     ShowEditProfile(request, response);
                     break;
-                case "delete":
+                case "delete_player":
                     showDeleteForm(request, response);
                     break;
                 default:
@@ -58,6 +58,7 @@ public class AdminServlet extends HttpServlet {
             case "edit":
                 break;
             case "delete":
+                DeleteAccount(request, response);
                 break;
         }
     }
@@ -95,14 +96,17 @@ public class AdminServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String role = request.getParameter("role");
         request.setAttribute("role", role);
+        AdminDAO adminDAO = new AdminDAO();
+        Account account = adminDAO.getAccountByID(id);
+        request.setAttribute("account", account);
         if(role.equals("player")){
             Player player = accountDao.getPlayerByAccountId(id);
-            request.setAttribute("account", player);
+            request.setAttribute("player", player);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminDelete.jsp");
             dispatcher.forward(request, response);
         }else{
             User user = accountDao.selectUserById(id);
-            request.setAttribute("account", user);
+            request.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/AdminDelete.jsp");
             dispatcher.forward(request, response);
         }
@@ -133,5 +137,11 @@ public class AdminServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private void DeleteAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        AdminDAO adminDAO = new AdminDAO();
+        adminDAO.DeleteAccount(id);
+        response.sendRedirect("jsp/AdminDelete.jsp");
     }
 }
