@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,6 +155,14 @@
             color: #03e9f4;
             background-color: white;
         }
+        .coin{
+            color: #03e9f4;
+            font-size: 17px;
+        }
+        .coin span{
+            color: yellow;
+            font-size: 120%;
+        }
     </style>
 </head>
 <body>
@@ -162,16 +171,18 @@
         <a href="#">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
-        <button>Nạp tiền</button>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><button>Nạp tiền</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
 <div class="content col-10">
     <form action="/quat" method="post">
+        <input type="hidden" name="action" value="rent">
         <fieldset>
             <legend>
-                <img src="../image/player/huynh_ngoc_han/1.jpg" alt="">
+                <img src="" alt="">
             </legend>
             <label for="hour">Giờ chơi:</label>
             <input type="text" id="hour" name="hour"><br>

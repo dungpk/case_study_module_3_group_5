@@ -189,4 +189,11 @@ button:hover{
     padding-top: 20px;
     height: 40%;
 }
-
+.coin{
+    color: #03e9f4;
+    font-size: 17px;
+}
+.coin span{
+    color: yellow;
+    font-size: 120%;
+}

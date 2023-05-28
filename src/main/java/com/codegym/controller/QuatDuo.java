@@ -104,7 +104,6 @@ public class QuatDuo extends HttpServlet {
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     displayProfile(request, response);
                     break;
-
                 case "playerRegister":
                     playerRegister(request, response);
                     break;
@@ -127,6 +126,11 @@ public class QuatDuo extends HttpServlet {
                 case "user_edit":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showUserEditForm(request, response);
+                    break;
+                case "rent":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    request.setAttribute("player_id", Integer.parseInt(request.getParameter("player_id")));
+                    showFormRent(request, response);
                     break;
                 default:
                     break;
@@ -154,7 +158,7 @@ public class QuatDuo extends HttpServlet {
         boolean checkAccount = accountDao.checkAccountExist(userName);
 
         if (checkAccount || !password.equals(confirm)) {
-            response.sendRedirect("jsp/playerRegister.html");
+            response.sendRedirect("jsp/playerRegister.jsp");
         } else {
             accountDao.createAccount(userName, password, "player");
             int idForeign = accountDao.getIdByUserName(userName);
@@ -281,7 +285,7 @@ public class QuatDuo extends HttpServlet {
 
     private void playerRegister(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRegister.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRegister.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -491,7 +495,7 @@ public class QuatDuo extends HttpServlet {
         }
     }
 
-    private void confirmUpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    private void confirmUpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age"));
         String email = request.getParameter("email");
@@ -499,9 +503,20 @@ public class QuatDuo extends HttpServlet {
         int accountID = Integer.parseInt(request.getParameter("account_id"));
 
         AccountDao accountDao = new AccountDao();
-        accountDao.updateUserNameByAccountId(accountID,name);
-        accountDao.updateProfileUserByAccountId(accountID,age,address,email);
-        displayProfile(request,response);
+        accountDao.updateUserNameByAccountId(accountID, name);
+        accountDao.updateProfileUserByAccountId(accountID, age, address, email);
+        displayProfile(request, response);
+    }
+
+    private void showFormRent(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRent.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

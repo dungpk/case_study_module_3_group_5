@@ -124,6 +124,14 @@
             font-family: Tahoma;
             font-size: 20px;
         }
+        .coin{
+            color: #03e9f4;
+            font-size: 17px;
+        }
+        .coin span{
+            color: yellow;
+            font-size: 120%;
+        }
     </style>
 </head>
 <body>
@@ -132,6 +140,7 @@
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
         <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
     </div>
