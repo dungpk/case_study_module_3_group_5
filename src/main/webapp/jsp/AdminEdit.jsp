@@ -134,6 +134,7 @@
     fieldset img{
         border-radius: 50%;
         border: 3px solid #03e9f4;
+        width: 200px;
     }
     #submit{
         width: 100px;

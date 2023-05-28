@@ -147,15 +147,18 @@
       color: #03e9f4;
       background-color: white;
     }
+    img{
+      width: 200px;
+    }
   </style>
 </head>
 <body>
 <div class="header col-12">
   <div class="header1 col-6">
-    <a href="#">QUAT<span>DUO</span></a>
+    <a href="/admin">QUAT<span>DUO</span></a>
   </div>
   <div class="header2 col-6">
-    <button>Trang chủ</button>
+    <a href="/admin"> <button>Trang chủ</button></a>
   </div>
 </div>
 <div class="main">
@@ -165,18 +168,19 @@
       <legend>
         <c:choose>
           <c:when test="${requestScope['role'] == 'player'}">
-            <img src="${requestScope['account'].getImg()}" alt="">
+            <img src="${requestScope['player'].getImg()}" alt="">
           </c:when>
           <c:otherwise>
-            <img src="${requestScope['account'].getImage_source()}" alt="">
+            <img src="${requestScope['user'].getImage_source()}" alt="">
           </c:otherwise>
         </c:choose>
       </legend>
-      <label for="username">Username:</label>
-      <input type="text" placeholder="Enter" name="username" id="username"><br>
-      <label for="password">Password:</label>
-      <input type="text" placeholder="Enter" name="password" id="password" style="margin-left: 5px"><br>
-      <input type="submit" id="submit" value="Xoá con lợn này" id="submit">
+      <input type="hidden" name="id" value="${requestScope['account'].getId()}">
+      <p>ID: ${requestScope['account'].getId()}</p>
+      <p>Username: ${requestScope['account'].getUsername()}</p>
+      <p>Password: ${requestScope['account'].getPassword()}</p>
+      <p>Role: ${requestScope['account'].getRole()}</p>
+      <input type="submit" id="submit" value="Xoá con lợn này">
     </fieldset>
   </form>
 </div>

@@ -1,5 +1,8 @@
 package com.codegym.dao;
 
+import com.codegym.model.Account;
+import com.codegym.model.Player;
+
 import java.sql.*;
 
 public class AdminDAO {
@@ -7,7 +10,8 @@ public class AdminDAO {
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "123456";
 
-
+    private static final String DELETE_ACCOUNT = "DELETE from account where id = ?";
+    private static final String GET_ACCOUNT_BY_ID = "SELECT * from account where id = ?";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -37,5 +41,32 @@ public class AdminDAO {
             throw new RuntimeException(e);
         }
         return id;
+    }
+    public void DeleteAccount(int account_id){
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(DELETE_ACCOUNT);
+            statement.setInt(1, account_id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Account getAccountByID(int id){
+        Account account = new Account();
+        try(Connection connection = getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_ACCOUNT_BY_ID);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                int account_id = rs.getInt("id");
+                String username = rs.getString("user_name");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                account = new Account(account_id, username, password, role);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return account;
     }
 }

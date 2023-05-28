@@ -181,7 +181,7 @@
                     <td>${account.getUsername()}</td>
                     <td>${account.getPassword()}</td>
                     <td>${account.getRole()}</td>
-                    <td><a href="/admin?action=edit&id=${account.getId()}&role=${account.getRole()}"><button>Edit</button></a><a href="/admin?action=delete?id=${account.getId()}&role=${account.getRole()}"><button>Delete</button></a></td>
+                    <td><a href="/admin?action=edit&id=${account.getId()}&role=${account.getRole()}"><button>Edit</button></a><a href="/admin?action=delete_player&id=${account.getId()}&role=${account.getRole()}"><button>Delete</button></a></td>
                 </tr>
             </c:forEach>
         </table>
