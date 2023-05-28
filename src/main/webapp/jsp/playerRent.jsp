@@ -180,7 +180,7 @@
 </div>
 <div class="content col-10">
     <form action="/quat" method="post">
-        <input type="hidden" name="action" value="rent">
+        <input type="hidden" name="action" value="rent_request">
         <input type="hidden" name="coin" value="${requestScope['coin']}">
         <input type="hidden" name="account_id" value="${requestScope['id']}">
         <input type="hidden" name="player_id" value="${requestScope['player_id']}">
@@ -192,7 +192,7 @@
             <input type="text" id="hour" name="hour"><br>
             <label for="description">Lời nhắn:</label><br>
             <textarea maxlength="20" type="text" id="description" name="description"></textarea><br>
-            <input id="submit" type="submit" value="Submit">
+            <input id="submit" type="submit" value="Thuê">
         </fieldset>
     </form>
 </div>

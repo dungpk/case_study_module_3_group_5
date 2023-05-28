@@ -56,18 +56,24 @@ public class QuatDuo extends HttpServlet {
                 case "accept_request":
                     request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
-                    acceptRequest(request,response);
+                    acceptRequest(request, response);
                     break;
                 case "refuse_request":
                     request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
-                    refuseRequest(request,response);
+                    refuseRequest(request, response);
                     break;
                 case "user_edit_confirm":
                     request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
-                    confirmUpdateUser(request,response);
+                    confirmUpdateUser(request, response);
                     break;
+                case "rent_request":
+                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    confirmRentRequest(request, response);
+                    break;
+
                 default:
                     break;
             }
@@ -222,15 +228,15 @@ public class QuatDuo extends HttpServlet {
             response.sendRedirect("jsp/login.jsp");
         } else {
             request.setAttribute("id", account.getId());
-            String role =  account.getRole();
+            String role = account.getRole();
 
-            if(role.equals("user")){
+            if (role.equals("user")) {
                 User user = accountDao.getUserByAccountId(account.getId());
-                request.setAttribute("coin",user.getCoin());
-            }else if (role.equals("player")){
+                request.setAttribute("coin", user.getCoin());
+            } else if (role.equals("player")) {
                 Player player = accountDao.getPlayerByAccountId(account.getId());
-                request.setAttribute("coin",player.getCoin());
-            }else{
+                request.setAttribute("coin", player.getCoin());
+            } else {
 
             }
 
@@ -347,7 +353,7 @@ public class QuatDuo extends HttpServlet {
         if (role.equals("user")) {
             int accountId = Integer.parseInt(request.getParameter("account_id"));
             User user = accountDao.getUserByAccountId(accountId);
-            request.setAttribute("user",user);
+            request.setAttribute("user", user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/userProfile.jsp");
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html");
@@ -415,8 +421,8 @@ public class QuatDuo extends HttpServlet {
         int hours = Integer.parseInt(request.getParameter("hours"));
         String des = request.getParameter("des");
 
-        Request requestRent = new Request(requestId,hours,des,userName );
-        request.setAttribute("request",requestRent);
+        Request requestRent = new Request(requestId, hours, des, userName);
+        request.setAttribute("request", requestRent);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/acceptRequest.jsp");
         dispatcher.forward(request, response);
@@ -429,8 +435,8 @@ public class QuatDuo extends HttpServlet {
         int hours = Integer.parseInt(request.getParameter("hours"));
         String des = request.getParameter("des");
 
-        Request requestRent = new Request(requestId,hours,des,userName );
-        request.setAttribute("request",requestRent);
+        Request requestRent = new Request(requestId, hours, des, userName);
+        request.setAttribute("request", requestRent);
         RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/refuseRequest.jsp");
         try {
 
@@ -449,7 +455,7 @@ public class QuatDuo extends HttpServlet {
         if (user.getName() != null) {
             int currentCoin = user.getCoin();
             int afterDeposit = currentCoin + coin;
-            userDAO.deposit(afterDeposit , id);
+            userDAO.deposit(afterDeposit, id);
             request.setAttribute("id", id);
             request.setAttribute("coin", afterDeposit);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/DepositSuccess.jsp");
@@ -457,25 +463,24 @@ public class QuatDuo extends HttpServlet {
         }
     }
 
-    private void refuseRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    private void refuseRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int requestId = Integer.parseInt(request.getParameter("request_id"));
         RequestDAO requestDAO = new RequestDAO();
         requestDAO.deleteRecordByRequestId(requestId);
 
         HttpSession session = request.getSession();
         session.setAttribute("message", "Đã hủy đơn đặt hàng !");
-        displayProfile(request,response);
+        displayProfile(request, response);
     }
 
-    private void acceptRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    private void acceptRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         int requestId = Integer.parseInt(request.getParameter("request_id"));
         int hours = Integer.parseInt(request.getParameter("hours"));
 
-        RequestDAO requestDAO =  new RequestDAO();
+        RequestDAO requestDAO = new RequestDAO();
         int idPlayer = requestDAO.getIdPlayerByIdRequest(requestId);
         int idUser = requestDAO.getIdUserByIdRequest(requestId);
-
 
 
         PlayerDAO playerDAO = new PlayerDAO();
@@ -485,27 +490,28 @@ public class QuatDuo extends HttpServlet {
         UserDAO userDao = new UserDAO();
         int coinUser = userDao.checkCoinUserByName(idUser);
 
-        if(coinUser<hours*pricePlayer){
+        if (coinUser < hours * pricePlayer) {
             request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
             requestDAO.deleteRecordByRequestId(requestId);
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã hủy đơn đặt hàng do người thuê không đủ tiền !");
-            displayProfile(request,response);
-        }else {
-            userDAO.updateCoinUser(idUser,coinUser - hours*pricePlayer);
-            playerDAO.updateCoinPlayer(idPlayer,player.getCoin()+hours*pricePlayer);
+            displayProfile(request, response);
+        } else {
+            userDAO.updateCoinUser(idUser, coinUser - hours * pricePlayer);
+            playerDAO.updateCoinPlayer(idPlayer, player.getCoin() + hours * pricePlayer);
             requestDAO.deleteRecordByRequestId(requestId);
 
-            request.setAttribute("coin",coinUser - hours*pricePlayer);
+            request.setAttribute("coin", coinUser - hours * pricePlayer);
 
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã nhận lời thuê từ user !");
-            displayProfile(request,response);
+            displayProfile(request, response);
         }
 
-        displayProfile(request,response);
+        displayProfile(request, response);
     }
-    private void showUserEditForm(HttpServletRequest request, HttpServletResponse response){
+
+    private void showUserEditForm(HttpServletRequest request, HttpServletResponse response) {
         try {
             AccountDao accountDao = new AccountDao();
 
@@ -517,7 +523,7 @@ public class QuatDuo extends HttpServlet {
 
             profile.setName(user.getName());
 
-            request.setAttribute("profile",profile);
+            request.setAttribute("profile", profile);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/UserEdit.jsp");
             request.setCharacterEncoding("UTF-8");
@@ -547,7 +553,7 @@ public class QuatDuo extends HttpServlet {
         displayProfile(request, response);
     }
 
-    private void showFormRent(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
+    private void showFormRent(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRent.jsp");
             dispatcher.forward(request, response);
@@ -556,6 +562,36 @@ public class QuatDuo extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void confirmRentRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
+        int hours = Integer.parseInt(request.getParameter("hour"));
+        int playerId = Integer.parseInt(request.getParameter("player_id"));
+        String des = request.getParameter("description");
+
+        PlayerDAO playerDAO = new PlayerDAO();
+        Player player = playerDAO.searchPlayerById(playerId);
+
+        int priceRent = hours * player.getPrice();
+
+
+        AccountDao accountDao = new AccountDao();
+        User user = accountDao.getUserByAccountId(Integer.parseInt(request.getParameter("account_id")));
+
+        UserDAO userDao = new UserDAO();
+        int coinUser = user.getCoin();
+        HttpSession session = request.getSession();
+
+        if (coinUser < priceRent) {
+            session.setAttribute("message", "Số tiền của bạn không đủ để thuê người chơi !");
+
+        } else {
+            RequestDAO requestDAO = new RequestDAO();
+            requestDAO.insertRequest(hours,des,user.getId(),player.getPlayer_id());
+            session.setAttribute("message", "Chúc mừng bạn đã thuê thành công !");
+        }
+
+        goHomePage(request,response);
     }
 }
 
