@@ -1,5 +1,5 @@
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>-->
-<!--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>-->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +13,9 @@
             <a href="#">QUAT<span>DUO</span></a>
         </div>
         <div class="header2 col-6">
-            <button>Trang chủ</button>
-            <button>Nạp tiền</button>
-            <button>Đăng xuất</button>
+            <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"></a><button>Trang chủ</button>
+            <a href="/quat?action=deposit&account_id=${requestScope['id']}"></a><button>Nạp tiền</button>
+            <a href="/quat?action=logout"></a><button>Đăng xuất</button>
         </div>
     </div>
     <div class="main col-12">
@@ -33,15 +33,13 @@
                   <div class="box col-11">
                       <h1>Thông tin</h1>
                       <div class="header-box col-12">
-                            <p>Tên: </p>
-                            <p>Tuổi: </p>
-                            <p>Điện thoại:</p>
-                            <p>Email:</p>
-                            <p>Địa chỉ:</p>
-                            <p>Sở thích:</p>
+                            <p>Tên: ${requestScope['user'].getName()}</p>
+                            <p>Tuổi: ${requestScope['user'].getAge()}</p>
+                            <p>Email: ${requestScope['user'].getEmail()}</p>
+                            <p>Địa chỉ: ${requestScope['user'].getAddress()}</p>
                       </div>
                       <div class="footer-box col-12">
-                            <button>Chỉnh sửa</button>
+                          <a href=""><button>Chỉnh sửa</button></a>
                       </div>
                   </div>
                   <div class=""></div>
