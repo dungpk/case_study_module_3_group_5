@@ -415,7 +415,7 @@ public class QuatDuo extends HttpServlet {
 
     private void deposit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id = Integer.parseInt(request.getParameter("account_id"));
-        int coin = Integer.parseInt(request.getParameter("coin"));
+        int coin = Integer.parseInt(request.getParameter("d_coin"));
         User user = userDAO.getUserByAccountId(id);
         if (user.getName() != null) {
             int currentCoin = user.getCoin();
