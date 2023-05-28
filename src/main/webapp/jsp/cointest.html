@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,6 +91,8 @@
       flex-direction: row;
       justify-content: right;
       padding-right: 10px;
+      align-items: center;
+      font-family: Tahoma;
     }
     .header{
       height: 64px;
@@ -106,58 +107,6 @@
     .header2 button{
       margin-right: 10px;
     }
-    .content{
-      margin: auto;
-      height: 700px;
-      background-color: #1f1f22;
-      border-radius: 10px;
-      display: flex;
-      color: #03e9f4;
-      font-family: Tahoma;
-      font-size: 16px;
-      justify-content: center;
-    }
-    .content img{
-      border-radius: 50%;
-      width: 200px;
-
-    }
-    .content fieldset{
-      margin-top: 80px;
-      border: 1px solid #03e9f4;
-      width: 700px;
-      height: 500px;
-    }
-    fieldset input{
-      width: 200px;
-      height: 30px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 20px;
-    }
-    fieldset label{
-    }
-    textarea{
-      resize: none;
-      margin-top: 20px;
-      width: 400px;
-      height: 100px;
-    }
-    #submit{
-      width: 90px;
-      color: white;
-      background-color: #03e9f4;
-      font-family: Tahoma;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    #submit:hover{
-      color: #03e9f4;
-      background-color: white;
-    }
-    p{
-      margin-top: 20px;
-    }
     .coin{
       color: #03e9f4;
       font-size: 17px;
@@ -171,32 +120,15 @@
 <body>
 <div class="header col-12">
   <div class="header1 col-6">
-    <a href="/quat?action=goHomePage&account_id=${requestScope['id']}">QUAT<span>DUO</span></a>
+    <a href="#">QUAT<span>DUO</span></a>
   </div>
   <div class="header2 col-6">
     <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
     <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
-    <a href="/quat?action=deposit&account_id=${requestScope['id']}"><button>Nạp tiền</button></a>
+    <a href=""><button>Nạp tiền</button></a>
     <a href="/quat?action=logout"><button>Đăng xuất</button></a>
   </div>
 </div>
-<div class="content col-10">
-  <form action="/quat" method="post">
-    <input type="hidden" name="action" value="accept_request">
-    <input type="hidden" name="account_id" value= ${requestScope['id']}>
-    <input type="hidden" name="request_id" value=${request.getId()}>
-    <input type="hidden" name="hours" value=${request.getHours()}>
 
-    <fieldset>
-      <legend>
-        <img src="../image/player/default.jpg" alt="">
-      </legend>
-      <p>Tên người chơi: ${request.getUserName()}</p><br>
-      <p>Giờ Thuê:${request.getHours()}</p><br>
-      <p>Tin Nhắn:${request.getDescription()}</p><br>
-      <input type="submit" value="Đồng ý" id="submit">
-    </fieldset>
-  </form>
-</div>
 </body>
 </html>

@@ -423,3 +423,11 @@ textarea{
     resize: none;
     overflow: auto;
 }
+.coin{
+    color: #03e9f4;
+    font-size: 17px;
+}
+.coin span{
+    color: yellow;
+    font-size: 120%;
+}

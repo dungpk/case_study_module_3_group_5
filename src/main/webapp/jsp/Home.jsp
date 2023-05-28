@@ -21,6 +21,7 @@
         </form>
     </div>
     <div class="header2 col-6">
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
         <a href="/quat?action=profile&account_id=${requestScope['id']}"><button>Trang cá nhân</button></a>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
         <a href="/quat?action=deposit&account_id=${requestScope['id']}"><button>Nạp tiền</button></a>
@@ -49,6 +50,7 @@
                     <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><img src="${player.getImg()}" alt=""></a>
                 </div>
                 <div class="detail">
+
                     <a href="/quat?action=display_player&id=${player.getPlayer_id()}&account_id=${requestScope['id']}"><p>Name: ${player.getName()}</p></a>
                     <p>Giá thuê: <span class="price">${player.getPrice()}/trận</span></p>
                 </div>

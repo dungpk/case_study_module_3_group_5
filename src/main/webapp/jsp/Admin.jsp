@@ -161,7 +161,9 @@
     <a href=""><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
   </div>
   <div class="header2 col-6">
-    <a href="/admin"><button>Trang chủ</button></a>
+      <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+      <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+    <a href="/admin?action=goHomePage&id=${requestScope['id']}"><button>Trang chủ</button></a>
       <a href="/quat?action=logout"><button>Đăng xuất</button></a>
   </div>
 </div>

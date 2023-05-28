@@ -99,7 +99,6 @@ public class QuatDuo extends HttpServlet {
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     displayProfile(request, response);
                     break;
-
                 case "playerRegister":
                     playerRegister(request, response);
                     break;
@@ -122,6 +121,11 @@ public class QuatDuo extends HttpServlet {
                 case "user_edit":
                     request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
                     showUserEditForm(request, response);
+                    break;
+                case "rent":
+                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
+                    request.setAttribute("player_id", Integer.parseInt(request.getParameter("player_id")));
+                    showFormRent(request, response);
                     break;
                 default:
                     break;
@@ -149,7 +153,7 @@ public class QuatDuo extends HttpServlet {
         boolean checkAccount = accountDao.checkAccountExist(userName);
 
         if (checkAccount || !password.equals(confirm)) {
-            response.sendRedirect("jsp/playerRegister.html");
+            response.sendRedirect("jsp/playerRegister.jsp");
         } else {
             accountDao.createAccount(userName, password, "player");
             int idForeign = accountDao.getIdByUserName(userName);
@@ -273,7 +277,7 @@ public class QuatDuo extends HttpServlet {
 
     private void playerRegister(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRegister.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRegister.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -459,6 +463,16 @@ public class QuatDuo extends HttpServlet {
     private void showUserEditForm(HttpServletRequest request, HttpServletResponse response){
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/UserEdit.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void showFormRent(HttpServletRequest request, HttpServletResponse response){
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playerRent.jsp");
             dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);

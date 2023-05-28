@@ -10,11 +10,12 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="#">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&accoun_id=${requestScope['id']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
-        <button>Nạp tiền</button>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"></a><button>Nạp tiền</button>
         <a href="/quat?action=logout"><button>Đăng xuất</button></a>
     </div>
 </div>
@@ -46,7 +47,7 @@
                     <p>ID: ${requestScope['player'].getPlayer_id()}</p>
                     <p>Tên: ${requestScope['player'].getName()}</p>
                     <p>Giá: ${requestScope['player'].getPrice()} coin/trận</p>
-                    <button>Thuê</button>
+                    <a href="/quat?action=rent&account_id=${requestScope['id']}&player_id=${requestScope['player'].getPlayer_id()}" ><button>Thuê</button></a>
                     <button>Nhắn tin</button>
                 </div>
             </div>

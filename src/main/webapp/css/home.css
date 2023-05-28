@@ -322,3 +322,11 @@ a{
 #submit:hover{
     color: #fff;
 }
+.coin{
+    color: #03e9f4;
+    font-size: 17px;
+}
+.coin span{
+    color: yellow;
+    font-size: 120%;
+}

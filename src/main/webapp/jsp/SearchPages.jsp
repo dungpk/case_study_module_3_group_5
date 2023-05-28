@@ -81,7 +81,7 @@
             letter-spacing: 2px;
             display: flex;
             height: 100%;
-            justify-content: left;
+            justify-content: right;
         }
         .header2 a{
             color: #fff;
@@ -201,6 +201,30 @@
             font-size: 13px;
             font-family: Arial;
         }
+        .coin{
+            color: red;
+            font-size: 17px;
+        }
+        .coin span{
+            color: yellow;
+            font-size: 120%;
+        }
+        .header2 button{
+            height: 35px;
+            background: #1f1f22;
+            border: none;
+            color: red;
+            border-radius: 8px;
+            height: 38px;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: Tahoma;
+            font-weight: 900;
+            margin-right: 10px;
+        }
+        .header2 button:hover{
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -209,7 +233,8 @@
         <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2 style="color: #fff" id="logo">QUAT<span style="font-size: 120%; color: red" >DUO</span></h2></a>
     </div>
     <div class="header2 col-6">
-        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><h2>Trang chủ</h2></a>
+        <a href="/quat?action=deposit&account_id=${requestScope['id']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}"><button>Trang chủ</button></a>
     </div>
 </div>
 <div class="sidebar col-2">
