@@ -112,7 +112,7 @@ public class QuatDuo extends HttpServlet{
         Account account = accountDao.confirmLogin(name,password);
         if(name.equals("admin") && password.equals("admin")){
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Admin.jsp");
-            request.setAttribute("userCoin", userDAO.listCoin());
+//            request.setAttribute("userCoin", userDAO.listCoin());
             request.setAttribute("playerCoin", playerDAO.listCoin());
             request.setAttribute("listPlayer", accountDao.listAccountPlayer());
             request.setAttribute("listUser", accountDao.listAccountUser());
