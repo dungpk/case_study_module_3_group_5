@@ -322,8 +322,10 @@ public class QuatDuo extends HttpServlet {
             User user = accountDao.getUserUserByAccountId(accountId);
             request.setAttribute("user",user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/userProfile.jsp");
+            request.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
             dispatcher.forward(request, response);
-
         } else {
             Player player = accountDao.getPlayerByAccountId(Integer.parseInt(request.getParameter("account_id")));
             request.setAttribute("player", player);
@@ -487,6 +489,9 @@ public class QuatDuo extends HttpServlet {
             request.setAttribute("profile",profile);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/UserEdit.jsp");
+            request.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
             dispatcher.forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
@@ -496,6 +501,7 @@ public class QuatDuo extends HttpServlet {
     }
 
     private void confirmUpdateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age"));
         String email = request.getParameter("email");
@@ -505,6 +511,8 @@ public class QuatDuo extends HttpServlet {
         AccountDao accountDao = new AccountDao();
         accountDao.updateUserNameByAccountId(accountID, name);
         accountDao.updateProfileUserByAccountId(accountID, age, address, email);
+        response.setContentType("html/text");
+        response.setCharacterEncoding("UTF-8");
         displayProfile(request, response);
     }
 
