@@ -323,9 +323,9 @@ a{
     color: #fff;
 }
 .coin{
-    color: #03e9f4;
+    color: red;
     font-size: 17px;
-    margin-left: 20px;
+    margin-left: -80px;
 }
 .coin span{
     color: yellow;

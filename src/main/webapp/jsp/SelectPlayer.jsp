@@ -10,7 +10,7 @@
 <body>
 <div class="header col-12">
     <div class="header1 col-6">
-        <a href="/quat?action=goHomePage&accoun_id=${requestScope['id']}&coin=${requestScope['coin']}">QUAT<span>DUO</span></a>
+        <a href="/quat?action=goHomePage&account_id=${requestScope['id']}&coin=${requestScope['coin']}">QUAT<span>DUO</span></a>
     </div>
     <div class="header2 col-6">
         <a href="/quat?action=deposit&account_id=${requestScope['id']}&coin=${requestScope['coin']}"><p class="coin">Coin: <span>${requestScope['coin']}</span></p></a>

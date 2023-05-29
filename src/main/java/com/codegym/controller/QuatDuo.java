@@ -119,8 +119,6 @@ public class QuatDuo extends HttpServlet {
                     displayProfile(request, response);
                     break;
                 case "playerRegister":
-                    request.setAttribute("id", Integer.parseInt(request.getParameter("account_id")));
-                    request.setAttribute("coin", Integer.parseInt(request.getParameter("coin")));
                     playerRegister(request, response);
                     break;
                 case "accept_request":
@@ -183,7 +181,7 @@ public class QuatDuo extends HttpServlet {
         } else {
             accountDao.createAccount(userName, password, "player");
             int idForeign = accountDao.getIdByUserName(userName);
-            playerDAO.createPlayer(name, 0, 0, 0, idForeign, "", 0);
+            playerDAO.createPlayer(name, 0, 0, 0, idForeign, "../image/Admin/default.jpg", 0);
             int idPlayer = playerDAO.getIdByIdForegin(idForeign);
             profileDao.createProfile(age, address, email, idForeign);
 //
@@ -502,7 +500,6 @@ public class QuatDuo extends HttpServlet {
             requestDAO.deleteRecordByRequestId(requestId);
 
             request.setAttribute("coin", player.getCoin() + hours * pricePlayer);
-
             HttpSession session = request.getSession();
             session.setAttribute("message", "Đã nhận lời thuê từ user !");
             displayProfile(request, response);

@@ -93,11 +93,8 @@ public class AccountDao implements IAccountDao{
     @Override
     public boolean checkAccountExist(String account) {
         String query = "{CALL search_account_by_user_name(?)}";
-        try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
-
-             CallableStatement callableStatement = connection.prepareCall(query)) {
-            // Step 3: Execute the query or update query
+        try (Connection connection = getConnection()) {
+            CallableStatement callableStatement = connection.prepareCall(query);
             callableStatement.setString(1,account);
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()){
@@ -274,6 +271,7 @@ public class AccountDao implements IAccountDao{
         User user = new User();
         try(Connection connection = getConnection()){
             PreparedStatement statement = connection.prepareStatement(GET_USER_BY_ACCOUNT_ID);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
                 int user_id = rs.getInt("id");
